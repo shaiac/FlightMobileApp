@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FlightMobileApp</string>
+    <string name="connect">Connect</string>
+    <string name="enter_url">Type URL…</string>
+    <string name="local_host1">Localhost1</string>
+    <string name="local_host2">Localhost2</string>
+    <string name="local_host3">Localhost3</string>
+    <string name="local_host4">Localhost4</string>
+    <string name="local_host5">Localhost5</string>
+</resources>
