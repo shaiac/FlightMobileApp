@@ -24,6 +24,7 @@
         android:layout_width="152dp"
         android:layout_height="48dp"
         android:layout_marginBottom="36dp"
+        android:onClick="gotoControl"
         android:text="@string/connect"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
