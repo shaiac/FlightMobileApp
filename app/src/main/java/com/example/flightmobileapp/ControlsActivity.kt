@@ -9,11 +9,11 @@ import android.widget.Toast
 class ControlsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_controls)
-
+        setContentView(R.layout.activity_second)
         val bundle: Bundle? = intent.extras
         val id = bundle?.get("id_value")
         Toast.makeText(applicationContext,id.toString()+" "+id, Toast.LENGTH_LONG).show()
+        
 
 //        // Get the Intent that started this activity and extract the string
 //        val message = intent.getStringExtra(EXTRA_MESSAGE)
