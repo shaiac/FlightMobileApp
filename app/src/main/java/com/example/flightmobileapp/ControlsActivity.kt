@@ -23,7 +23,7 @@ class ControlsActivity : AppCompatActivity() {
         val id = bundle?.get("id_value")
         Toast.makeText(applicationContext,id.toString()+" "+id, Toast.LENGTH_LONG).show()
         btn_innerJoystick.setOnLongClickListener {
-            val clickText = "this is clip data"
+            val clickText = "this is  clip data"
             val item = ClipData.Item(clickText)
             val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
             val data = ClipData(clickText, mimeTypes, item)
