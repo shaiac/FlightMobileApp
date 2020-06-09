@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_second"
+    tools:context=".ControlsActivity">
+    <SeekBar
+        android:id="@+id/seekBar3"
+        android:layout_width="227dp"
+        android:layout_height="82dp"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="314dp" />
+
+    <SeekBar
+        android:id="@+id/seekBar4"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="367dp"
+        android:layout_height="74dp"
+        android:max="10"
+        android:progress="3"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="25dp" />
+
+    <Button
+        android:id="@+id/btn_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/circle"
+        android:textColor="#fff"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="77dp" />
+
+    <Button
+        android:id="@+id/btn_innerJoystick"
+        android:layout_width="133dp"
+        android:layout_height="133dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/inner_circle"
+        android:textColor="#fff"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="134dp" />
+
+    <Button
+        android:id="@+id/btn_tringlrRight"
+        android:layout_width="18dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/tringle"
+        android:textColor="#fff"
+        tools:layout_editor_absoluteX="304dp"
+        tools:layout_editor_absoluteY="169dp" />
+
+    <Button
+        android:id="@+id/btn_tringleDown"
+        android:layout_width="29dp"
+        android:layout_height="54dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/tringle"
+        android:rotation="90"
+        android:textColor="#fff"
+        tools:layout_editor_absoluteX="191dp"
+        tools:layout_editor_absoluteY="273dp" />
+
+    <Button
+        android:id="@+id/btn_tringleUp"
+        android:layout_width="26dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/tringle"
+        android:rotation="-90"
+        android:textColor="#fff"
+        tools:layout_editor_absoluteX="191dp"
+        tools:layout_editor_absoluteY="77dp" />
+
+    <Button
+        android:id="@+id/btn_tringlrLeft"
+        android:layout_width="22dp"
+        android:layout_height="73dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/tringle"
+        android:rotation="180"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="169dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
