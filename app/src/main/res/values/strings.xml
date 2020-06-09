@@ -11,4 +11,9 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="outer_circle">out_circle</string>
+    <string name="arrow_up">arrow_up</string>
+    <string name="arrow_down">arrow_down</string>
+    <string name="arrow_left">arrow_left</string>
+    <string name="arrow_right">arrow_right</string>
 </resources>
