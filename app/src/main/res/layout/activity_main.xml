@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_begin"
+    android:background="#900C3F"
     tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/editTextTextPostalAddress"
-        android:layout_width="267dp"
-        android:layout_height="57dp"
+        android:layout_width="379dp"
+        android:layout_height="73dp"
         android:ems="10"
         android:hint="@string/enter_url"
         android:inputType="textUri"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:backgroundTintMode="add"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,57 +35,109 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="350dp"
+        android:layout_height="430dp"
+        android:background="#FFC300"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="67dp">
+
+        <TextView
+            android:id="@+id/localhost1"
+            android:layout_width="350dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:text="@string/local_host1"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/localhost2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            android:text="@string/local_host2"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/localhost3"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:text="@string/local_host3"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/localhost4"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="290dp"
+            android:text="@string/local_host4"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/localhost5"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="380dp"
+            android:text="@string/local_host5"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="406dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="681dp"
-        android:text="@string/local_host1"
+        android:layout_width="288dp"
+        android:layout_height="38dp"
+        android:text="History URLS"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#FFC300"
+        android:textSize="25sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="406dp"
-        android:layout_height="45dp"
-        android:text="@string/local_host2"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="50dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="406dp"
-        android:layout_height="45dp"
-        android:text="@string/local_host3"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="103dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="406dp"
-        android:layout_height="45dp"
-        android:text="@string/local_host4"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="157dp" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="406dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="308dp"
-        android:text="@string/local_host5"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPostalAddress"
-        tools:layout_editor_absoluteX="2dp" />
+        app:layout_constraintVertical_bias="0.063"
+        tools:layout_editor_absoluteX="61dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
