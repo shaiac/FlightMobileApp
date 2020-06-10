@@ -2,47 +2,95 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_second"
+    android:background="@drawable/sky"
+    android:padding="16dp"
+    android:screenOrientation="landscape"
     tools:context=".ControlsActivity">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="419dp"
-        android:layout_height="338dp"
-        android:contentDescription="TODO"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-4dp"
-        tools:layout_editor_absoluteY="377dp"
-        tools:srcCompat="@drawable/bg_begin" />
 
-    <shape
-        android:layout_width="277dp"
-        android:layout_height="246dp"
-        android:shape="oval"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="77dp">
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        android:id="@+id/joystickView"
+        android:layout_width="321dp"
+        android:layout_height="314dp"
+        app:JV_backgroundColor="#E6E6FA"
+        app:JV_borderColor="#000000"
+        app:JV_borderWidth="1.5dp"
+        app:JV_buttonColor="#9370DB"
+        app:JV_buttonSizeRatio="25%"
+        app:JV_fixedCenter="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.856" />
 
-        <solid android:color="@android:color/white"
-            android:layout_width="wrap_content" />
+    <EditText
+        android:id="@+id/aileronText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/elevatorText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.231" />
 
-        <stroke
-            android:width="1.5dp"
-            android:color="@android:color/holo_red_light" />
-
-        <size
-            android:width="120dp"
-            android:height="120dp" />
-    </shape>
+    <EditText
+        android:id="@+id/elevatorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFFFFF"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.611"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155" />
 
     <SeekBar
-        android:id="@+id/seekBar2"
-        android:layout_width="298dp"
-        android:layout_height="59dp"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="16dp"
-        tools:ignore="MissingConstraints" />
+        android:id="@+id/seekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="311dp"
+        android:layout_height="77dp"
+        android:indeterminateTint="#FFFFFF"
+        android:max="10"
+        android:progress="3"
+        android:progressTint="#9C27B0"
+        android:thumbTint="#9C27B0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/joystickView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <SeekBar
+        android:id="@+id/seekBar3"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="311dp"
+        android:layout_height="116dp"
+        android:layout_marginEnd="184dp"
+        android:max="10"
+        android:progress="3"
+        android:progressTint="#9C27B0"
+        android:rotation="90"
+        android:scrollbarStyle="outsideOverlay"
+        android:secondaryProgressTint="#FFFFFF"
+        android:thumbTint="#9C27B0"
+        android:tickMarkTint="#FFFFFF"
+        android:verticalScrollbarPosition="right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/joystickView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.822" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
