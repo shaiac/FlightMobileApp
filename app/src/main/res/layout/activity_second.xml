@@ -2,123 +2,71 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_second"
+    android:padding="16dp"
+    android:screenOrientation="landscape"
     tools:context=".ControlsActivity">
+
+    <GridLayout
+        android:layout_width="404dp"
+        android:layout_height="719dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        android:id="@+id/joystickView"
+        android:layout_width="321dp"
+        android:layout_height="314dp"
+        app:JV_backgroundColor="#009688"
+        app:JV_borderColor="#00796B"
+        app:JV_borderWidth="4dp"
+        app:JV_buttonColor="#FF6E40"
+        app:JV_buttonSizeRatio="20%"
+        app:JV_fixedCenter="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.856" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="311dp"
+        android:layout_height="77dp"
+        android:max="10"
+        android:progress="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/joystickView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <SeekBar
         android:id="@+id/seekBar3"
-        android:layout_width="227dp"
-        android:layout_height="82dp"
-        app:layout_constraintBottom_toTopOf="@+id/out_circle"
-        app:layout_constraintEnd_toEndOf="@+id/out_circle"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/out_circle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.907" />
-
-    <SeekBar
-        android:id="@+id/seekBar4"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="308dp"
-        android:layout_height="89dp"
+        style="@android:style/Widget.Material.SeekBar.Discrete"
+        android:layout_width="311dp"
+        android:layout_height="116dp"
+        android:layout_marginEnd="184dp"
         android:max="10"
         android:progress="3"
         android:rotation="90"
-        app:layout_constraintBottom_toBottomOf="@+id/out_circle"
-        app:layout_constraintEnd_toStartOf="@+id/out_circle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/out_circle"
-        app:layout_constraintVertical_bias="0.514" />
-
-    <LinearLayout
-        android:id="@+id/out_circle"
-        android:layout_width="265dp"
-        android:layout_height="260dp"
-        android:orientation="horizontal"
-        android:layout_centerInParent="true"
-        android:background="@drawable/circle"
-
-        android:contentDescription="@string/outer_circle"
-        android:textColor="#fff"
+        android:scrollbarStyle="outsideOverlay"
+        android:secondaryProgressTint="#FFFFFF"
+        android:verticalScrollbarPosition="right"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.654"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/joystickView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.881" />
-
-    <Button
-        android:id="@+id/btn_innerJoystick"
-        android:layout_width="89dp"
-        android:layout_height="92dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/inner_circle"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="@+id/out_circle"
-        app:layout_constraintEnd_toEndOf="@+id/out_circle"
-        app:layout_constraintStart_toStartOf="@+id/out_circle"
-        app:layout_constraintTop_toTopOf="@+id/out_circle" />
-
-    <ImageView
-        android:id="@+id/arrow_right"
-        android:layout_width="21dp"
-        android:layout_height="70dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/tringle"
-        android:contentDescription="@string/arrow_right"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="@+id/out_circle"
-        app:layout_constraintEnd_toEndOf="@+id/out_circle"
-        app:layout_constraintStart_toEndOf="@+id/btn_innerJoystick"
-        app:layout_constraintTop_toTopOf="@+id/out_circle" />
-
-    <ImageView
-        android:id="@+id/arrow_down"
-        android:layout_width="24dp"
-        android:layout_height="71dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/tringle"
-        android:contentDescription="@string/arrow_down"
-        android:rotation="90"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="@+id/out_circle"
-        app:layout_constraintEnd_toEndOf="@+id/arrow_right"
-        app:layout_constraintHorizontal_bias="0.584"
-        app:layout_constraintStart_toStartOf="@+id/out_circle"
-        app:layout_constraintTop_toBottomOf="@+id/btn_innerJoystick"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/arrow_up"
-        android:layout_width="26dp"
-        android:layout_height="60dp"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/tringle"
-        android:contentDescription="@string/arrow_up"
-        android:rotation="-90"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toTopOf="@+id/btn_innerJoystick"
-        app:layout_constraintEnd_toEndOf="@+id/out_circle"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/out_circle"
-        app:layout_constraintTop_toTopOf="@+id/out_circle"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/arrow_left"
-        android:layout_width="22dp"
-        android:layout_height="73dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/tringle"
-        android:contentDescription="@string/arrow_left"
-        android:rotation="180"
-        app:layout_constraintBottom_toBottomOf="@+id/out_circle"
-        app:layout_constraintEnd_toStartOf="@+id/btn_innerJoystick"
-        app:layout_constraintStart_toStartOf="@+id/out_circle"
-        app:layout_constraintTop_toTopOf="@+id/out_circle" />
+        app:layout_constraintVertical_bias="0.822" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

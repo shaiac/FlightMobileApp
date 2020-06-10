@@ -1,37 +1,40 @@
 package com.example.flightmobileapp
 
-import android.content.ClipData
-import android.content.ClipDescription
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
-import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import io.github.controlwear.virtual.joystick.android.JoystickView
+import kotlinx.android.synthetic.main.activity_controls.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.activity_second.*
+import kotlinx.android.synthetic.main.activity_second.joystickView
 
 class ControlsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second)
-        out_circle.setOnDragListener(dragListener)
-        val bundle: Bundle? = intent.extras
-        val id = bundle?.get("id_value")
-        Toast.makeText(applicationContext,id.toString()+" "+id, Toast.LENGTH_LONG).show()
-        btn_innerJoystick.setOnLongClickListener {
-            val clickText = "this is  clip data"
-            val item = ClipData.Item(clickText)
-            val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
-            val data = ClipData(clickText, mimeTypes, item)
-            val dragShadowBuilder = View.DragShadowBuilder(it)
-            it.startDragAndDrop(data, dragShadowBuilder, it, 0)
-            it.visibility = View.INVISIBLE
-            true
+        setContentView(R.layout.activity_controls)
+        setJoystick()
         }
+
+    private fun setJoystick() {
+        val joystick = joystickView.right
+        joystickView.setOnMoveListener {
+            angle, strength ->
+            val aileron = kotlin.math.cos(Math.toRadians(angle.toDouble())) * strength / 100
+            val elevator = kotlin.math.sin(Math.toRadians(angle.toDouble())) * strength / 100
+
+            aileronText.setText((aileron.toDouble()).toString())
+            elevatorText.setText(elevator.toDouble().toString())
+
+
+            // send aileron and elevator to command server
+
+    }
+}
+
+
+
 //        // Get the Intent that started this activity and extract the string
 //        val message = intent.getStringExtra(EXTRA_MESSAGE)
 //
@@ -39,40 +42,5 @@ class ControlsActivity : AppCompatActivity() {
 //        val textView = findViewById<TextView>(R.id.textView).apply {
 //            text = message
 //        }
-    }
-
-    val dragListener = View.OnDragListener { view, event ->
-        when(event.action) {
-            DragEvent.ACTION_DRAG_STARTED -> {
-                event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)
-            }
-            DragEvent.ACTION_DRAG_ENTERED -> {
-                view.invalidate()
-                true
-            }
-            DragEvent.ACTION_DRAG_LOCATION-> true
-            DragEvent.ACTION_DRAG_EXITED->{
-                view.invalidate()
-                true
-            }
-            DragEvent.ACTION_DROP -> {
-                val item = event.clipData.getItemAt(0)
-                val dragData = item.text
-                Toast.makeText(this,dragData, Toast.LENGTH_SHORT).show()
-                view.invalidate()
-                val v = event.localState as View
-                val owner = v.parent as ViewGroup
-                owner.removeView(v)
-                val destination = view as LinearLayout
-                destination.addView(v)
-                v.visibility = View.VISIBLE
-                true
-            }
-            DragEvent.ACTION_DRAG_ENDED -> {
-                view.invalidate()
-                true
-            }
-            else -> false
-        }
-    }
 }
+
