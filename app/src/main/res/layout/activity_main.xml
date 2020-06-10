@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#900C3F"
+    android:background="#041E42"
     tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/editTextTextPostalAddress"
-        android:layout_width="379dp"
-        android:layout_height="73dp"
+        android:layout_width="370dp"
+        android:layout_height="60dp"
         android:backgroundTintMode="add"
         android:ems="10"
         android:hint="@string/enter_url"
+        android:background="#AFEADC"
         android:inputType="textUri"
         android:textAlignment="center"
         android:textSize="25sp"
@@ -24,12 +25,13 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="152dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:background="#AFEADC"
         android:onClick="gotoControl"
         android:text="@string/connect"
-        android:background="#FFC300"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.532"
@@ -39,10 +41,10 @@
     <FrameLayout
         android:id="@+id/frameLayout1"
         android:layout_width="360dp"
-        android:layout_height="410dp"
+        android:layout_height="360dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:background="#000000"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.686"
@@ -52,9 +54,10 @@
         <FrameLayout
             android:id="@+id/frameLayout2"
             android:layout_width="350dp"
-            android:layout_height="400dp"
-            android:background="#FFC300"
-            tools:layout_editor_absoluteX="29dp"
+            android:layout_height="350dp"
+            android:background="#AFEADC"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="80dp"
             tools:layout_editor_absoluteY="67dp">
 
             <TextView
@@ -155,7 +158,7 @@
         android:layout_marginBottom="10dp"
         android:text="History URLS"
         android:textAlignment="center"
-        android:textColor="#FFC300"
+        android:textColor="#AFEADC"
         android:textSize="25sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout1"
