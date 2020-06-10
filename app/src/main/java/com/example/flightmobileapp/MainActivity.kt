@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initViews()
     }
-
+    //init the view only one time
     fun initViews() {
         this.urlInput = findViewById(R.id.editTextTextPostalAddress)
         this.localhost1 = findViewById(R.id.localhost1)
