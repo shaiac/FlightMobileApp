@@ -13,8 +13,8 @@
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickView"
-        android:layout_width="277dp"
-        android:layout_height="274dp"
+        android:layout_width="312dp"
+        android:layout_height="297dp"
         android:padding="0dp"
         app:JV_backgroundColor="#E6E6FA"
         app:JV_borderColor="#9370DB"
@@ -24,10 +24,49 @@
         app:JV_fixedCenter="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.876" />
+        app:layout_constraintVertical_bias="0.829" />
+
+    <com.ramotion.fluidslider.FluidSlider
+        android:id="@+id/fluidSliderRudder"
+        android:layout_width="202dp"
+        android:layout_height="108dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="2dp"
+        app:bar_color="@color/eggplant"
+        app:duration="@android:integer/config_mediumAnimTime"
+        app:end_text="1"
+        app:initial_position="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.564"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/joystickView"
+        app:layout_constraintVertical_bias="1.0"
+        app:size="small"
+        app:start_text="-1"
+        tools:targetApi="lollipop" />
+
+
+    <com.ramotion.fluidslider.FluidSlider
+        android:id="@+id/fluidSliderThrottle"
+        android:layout_width="202dp"
+        android:layout_height="102dp"
+        android:layout_marginEnd="188dp"
+        android:elevation="2dp"
+        android:rotation="90"
+        app:bar_color="@color/eggplant"
+        app:duration="@android:integer/config_mediumAnimTime"
+        app:end_text="1"
+        app:initial_position="0"
+        app:layout_constraintBottom_toBottomOf="@+id/fluidSliderRudder"
+        app:layout_constraintEnd_toEndOf="@+id/joystickView"
+        app:layout_constraintTop_toTopOf="@+id/joystickView"
+        app:layout_constraintVertical_bias="0.391"
+        app:size="small"
+        app:start_text="0"
+        tools:targetApi="lollipop" />
 
     <EditText
         android:id="@+id/aileronText"
@@ -58,67 +97,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.706" />
 
-    <SeekBar
-        android:id="@+id/seekBar"
-        style="@android:style/Widget.Material.SeekBar"
-        android:layout_width="275dp"
-        android:layout_height="69dp"
-        android:indeterminateTint="#FFFFFF"
-        android:max="10"
-        android:progress="3"
-        android:progressTint="#9370DB"
-        android:thumbTint="#9370DB"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/rudderView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:rotation="270"
+        android:text="Rudder"
+        app:layout_constraintBottom_toBottomOf="@+id/fluidSliderRudder"
+        app:layout_constraintEnd_toEndOf="@+id/fluidSliderRudder"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/throttleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Throttle"
+        app:layout_constraintBottom_toTopOf="@+id/fluidSliderThrottle"
+        app:layout_constraintEnd_toEndOf="@+id/fluidSliderThrottle"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/joystickView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/joystickView"
+        app:layout_constraintVertical_bias="0.341" />
 
-    <SeekBar
-        android:id="@+id/seekBar3"
-        style="@android:style/Widget.Material.SeekBar"
-        android:layout_width="265dp"
-        android:layout_height="104dp"
-        android:layout_marginEnd="176dp"
-        android:max="10"
-        android:progress="3"
-        android:progressTint="#9370DB"
-        android:rotation="90"
-        android:thumbTint="#9370DB"
-        android:verticalScrollbarPosition="right"
-        app:layout_constraintBottom_toBottomOf="@+id/joystickView"
-        app:layout_constraintEnd_toEndOf="@+id/joystickView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.788" />
-
-    <EditText
-        android:id="@+id/seekBarText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FFFFFF"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:rotation="90"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/joystickView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.406" />
-
-    <EditText
-        android:id="@+id/seekBarText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FFFFFF"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:rotation="90"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/joystickView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.288" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
