@@ -20,7 +20,7 @@
         app:JV_borderColor="#2F5AB3"
         app:JV_borderWidth="1.5dp"
         app:JV_buttonColor="#b3d9ff"
-        app:JV_buttonSizeRatio="25%"
+        app:JV_buttonSizeRatio="24%"
         app:JV_fixedCenter="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
