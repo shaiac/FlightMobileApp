@@ -2,30 +2,48 @@ package com.example.flightmobileapp
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LocalHostsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: LocalHostsRepository
-    // Using LiveData and caching what getAlphabetizedWords returns has several benefits:
-    // - We can put an observer on the data (instead of polling for changes) and only update the
-    //   the UI when the data actually changes.
-    // - Repository is completely separated from the UI through the ViewModel.
-    private val allLocalHosts: LiveData<List<LocalHosts>>
-
-    init {
-        val localHostsDao = LocalHostsRoomDatabase.getDatabase(application).localHostDao()
-        repository = LocalHostsRepository(localHostsDao)
-        allLocalHosts = repository.allLocalHosts
-    }
-
+    var allLocalHost: List<LocalHost>? = null
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(localHost: LocalHosts) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(localHost)
+    fun insert(localHost: LocalHost, localHostDao: LocalHostDao?) = viewModelScope.launch(Dispatchers.IO) {
+        updateListFromDataBase(localHostDao)
+        var size: Int? = null
+        if (allLocalHost != null) {
+            size = allLocalHost?.size
+        }
+        if (size !=null && size < 5) {
+            localHostDao?.insertLocalHost(localHost)
+        } else {
+            var str : String = allLocalHost!![0].localHost
+            deleteLocalHost(str , localHostDao)
+            localHostDao?.insertLocalHost(localHost)
+        }
     }
+
+    fun updateListFromDataBase(localHostDao: LocalHostDao?) = viewModelScope.launch(Dispatchers.IO) {
+        allLocalHost = localHostDao?.getLocalHosts()
+    }
+
+    fun clearAllTable(localHostDao: LocalHostDao?) = viewModelScope.launch(Dispatchers.IO) {
+        localHostDao?.clearAllTable()
+    }
+
+    fun getAllList(localHostDao: LocalHostDao?) : List<LocalHost>? {
+        updateListFromDataBase(localHostDao)
+        Thread.sleep(200)
+        return this.allLocalHost
+    }
+
+    private fun deleteLocalHost(localHost: String, localHostDao: LocalHostDao?) = viewModelScope.launch(Dispatchers.IO) {
+        localHostDao?.deleteByName(localHost)
+    }
+
+
 }

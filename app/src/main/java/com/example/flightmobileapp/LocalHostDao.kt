@@ -1,20 +1,25 @@
 package com.example.flightmobileapp
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.flightmobileapp.LocalHosts
 
 @Dao
-interface LocalHostDao {
-    @Query("SELECT * from localHosts_table ORDER BY localHost ASC")
-    fun getAlphabetizedWords(): LiveData<List<LocalHosts>>
+interface  LocalHostDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertLocalHost(localHost: LocalHost)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(localHost: LocalHosts)
+    @Query("SELECT * FROM localHosts_table")
+    fun getLocalHosts(): List<LocalHost>
+
+    @Query("SELECT * FROM localHosts_table WHERE localHost == :localHost")
+    fun getLocalHostByName(localHost: String): List<LocalHost>?
 
     @Query("DELETE FROM localHosts_table")
-    suspend fun deleteAll()
+    fun clearAllTable()
+
+    @Query ("DELETE FROM localHosts_table WHERE localHost == :localHost")
+    fun deleteByName(localHost: String)
+
 }

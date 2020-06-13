@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = arrayOf(LocalHosts::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(LocalHost::class), version = 1, exportSchema = false)
 public abstract class LocalHostsRoomDatabase : RoomDatabase() {
 
     abstract fun localHostDao(): LocalHostDao
