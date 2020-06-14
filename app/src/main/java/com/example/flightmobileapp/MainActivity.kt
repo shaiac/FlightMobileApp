@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import java.sql.ClientInfoStatus
 
@@ -50,9 +51,13 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the connect button */
     fun gotoControl(view: View) {
-        var connected = client.connect(urlInput.text.toString())
+        val connected = client.connect(urlInput.text.toString())
         if (connected == 0) {
-            //error
+            val text = "Can't connect, try again!"
+            val duration = Toast.LENGTH_LONG
+            val toast = Toast.makeText(applicationContext, text, duration)
+            toast.show()
+            urlInput.setText("")
         } else {
             viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
             val intent = Intent(this, ControlsActivity::class.java)
