@@ -1,9 +1,8 @@
 package com.example.flightmobileapp
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.SeekBar
+import androidx.appcompat.app.AppCompatActivity
 import com.ramotion.fluidslider.FluidSlider
 import kotlinx.android.synthetic.main.activity_controls.*
 import kotlinx.android.synthetic.main.activity_second.joystickView
@@ -11,11 +10,14 @@ import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
     private lateinit var client: Client
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_controls)
-       // client = intent.extras?.get("client") as Client
 
+       // client = intent.extras?.get("client") as Client // FALLING HERE
+        val temp = intent.getSerializableExtra("client") // RETURNS NULL
+
+        setContentView(R.layout.activity_controls)
         setJoystick()
         setSliders()
     }

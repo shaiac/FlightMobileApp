@@ -9,7 +9,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 
-class Client : Serializable, Api {
+class Client : Serializable {
     private lateinit var urlConn: URL
     private lateinit var con: HttpURLConnection
     private var aileron: Double = 0.0
@@ -43,9 +43,7 @@ class Client : Serializable, Api {
         return 1
     }
 
-    override fun getImg(): retrofit2.Call<ResponseBody> {
-        TODO("Not yet implemented")
-    }
+
 
     fun sendJson() {
         con.requestMethod = "POST"

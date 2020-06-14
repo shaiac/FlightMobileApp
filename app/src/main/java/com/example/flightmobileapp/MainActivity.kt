@@ -1,14 +1,13 @@
 package com.example.flightmobileapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import java.sql.ClientInfoStatus
 
 class MainActivity : AppCompatActivity() {
     private var viewModel: LocalHostsViewModel? = null
@@ -61,9 +60,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             // succeeded connecting to server:
             viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
-            val intent = Intent(this, ControlsActivity::class.java)
-            //intent.putExtra("client", client)
-            intent.putExtra("client", 10)
+            val intent = Intent(this, ControlsActivity::class.java).apply {
+                intent.putExtra("client", client)
+            }
+            //intent.putExtra("client", 10)
             startActivity(intent)
         }
     }
