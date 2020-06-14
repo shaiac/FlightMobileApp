@@ -14,7 +14,8 @@ class ControlsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controls)
-        client = intent.extras?.get("client") as Client
+       // client = intent.extras?.get("client") as Client
+
         setJoystick()
         setSliders()
     }

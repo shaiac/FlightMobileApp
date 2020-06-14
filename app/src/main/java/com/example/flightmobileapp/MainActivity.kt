@@ -59,9 +59,11 @@ class MainActivity : AppCompatActivity() {
             toast.show()
             urlInput.setText("")
         } else {
+            // succeeded connecting to server:
             viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
             val intent = Intent(this, ControlsActivity::class.java)
-            intent.putExtra("client", client)
+            //intent.putExtra("client", client)
+            intent.putExtra("client", 10)
             startActivity(intent)
         }
     }
