@@ -10,58 +10,13 @@ import kotlinx.android.synthetic.main.activity_second.joystickView
 import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
+    private lateinit var client: Client
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controls)
+        client = intent.extras?.get("client") as Client
         setJoystick()
         setSliders()
-
-
-//        val seek = findViewById<SeekBar>(R.id.throttleSlider)
-//        seek?.setOnSeekBarChangeListener(object :
-//            SeekBar.OnSeekBarChangeListener {
-//            override fun onProgressChanged(
-//                seek: SeekBar,
-//                progress: Int, fromUser: Boolean
-//            ) {
-//
-//                // write custom code for progress is changed
-//            }
-//
-//            override fun onStartTrackingTouch(seek: SeekBar) {
-//                val a = seek.progress
-//                seekBarText3.setText(seek.progress.toString())
-//                // write custom code for progress is started
-//            }
-//
-//            override fun onStopTrackingTouch(seek: SeekBar) {
-//                // write custom code for progress is stopped
-//            }
-//        })
-//
-//        val seek2 = findViewById<SeekBar>(R.id.rudderSlider)
-//        seek2?.setOnSeekBarChangeListener(object :
-//            SeekBar.OnSeekBarChangeListener {
-//            override fun onProgressChanged(
-//                seek2: SeekBar,
-//                progress: Int, fromUser: Boolean
-//            ) {
-//
-//                // write custom code for progress is changed
-//            }
-//
-//            override fun onStartTrackingTouch(seek2: SeekBar) {
-//                val a = seek2.progress
-//                seekBarText.setText(seek2.progress.toString())
-//                // write custom code for progress is started
-//            }
-//
-//            override fun onStopTrackingTouch(seek: SeekBar) {
-//                // write custom code for progress is stopped
-//            }
-//        })
-
-
     }
 
     private fun setJoystick() {
@@ -70,13 +25,19 @@ class ControlsActivity : AppCompatActivity() {
             angle, strength ->
             val aileron = kotlin.math.cos(Math.toRadians(angle.toDouble())) * strength / 100
             val elevator = kotlin.math.sin(Math.toRadians(angle.toDouble())) * strength / 100
-
+            // show values on screen:
             aileronText.setText(aileron.toDouble().toString())
             elevatorText.setText(elevator.toDouble().toString())
-
-            // send aileron and elevator to command server
+            // send aileron and elevator values server:
+            client.setAileron(aileron)
+            client.setElevator(elevator)
+            sendCommand()
+        }
     }
-}
+
+    private fun sendCommand() {
+        client.sendJson()
+    }
 
     private fun setSliders() {
         // set rudder slider (seek bar)
@@ -90,6 +51,8 @@ class ControlsActivity : AppCompatActivity() {
             // send rudder to server
             val rudderDisplay = rudder.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
             rudderSeek.bubbleText = rudderDisplay.toString()
+            client.setRudder(rudder.toDouble())
+            sendCommand()
         }
         // set throttle slider (seek bar)
         val throttleSeek = findViewById<FluidSlider>(R.id.fluidSliderThrottle)
@@ -101,6 +64,8 @@ class ControlsActivity : AppCompatActivity() {
             // send throttle to server
             val throttleDisplay = throttle.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
             throttleSeek.bubbleText = throttleDisplay.toString()
+            client.setThrottle(throttle.toDouble())
+            sendCommand()
         }
     }
 

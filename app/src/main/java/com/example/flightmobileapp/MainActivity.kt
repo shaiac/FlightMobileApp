@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import java.sql.ClientInfoStatus
 
 class MainActivity : AppCompatActivity() {
     private var viewModel: LocalHostsViewModel? = null
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private var localHostDao: LocalHostDao? = null
     private var localHostsList : ArrayList<TextView> = ArrayList()
     private lateinit var urlInput: EditText
+    private var client = Client()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,11 +50,15 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the connect button */
     fun gotoControl(view: View) {
-        val id:Int = 10 //send "10" to controls
-        val intent = Intent(this, ControlsActivity::class.java)
-        intent.putExtra("id_value", id)
-        viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
-        startActivity(intent)
+        var connected = client.connect(urlInput.text.toString())
+        if (connected == 0) {
+            //error
+        } else {
+            viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
+            val intent = Intent(this, ControlsActivity::class.java)
+            intent.putExtra("client", client)
+            startActivity(intent)
+        }
     }
 
     fun putUrl(view : View) {
