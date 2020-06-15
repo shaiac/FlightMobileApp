@@ -2,6 +2,7 @@ package com.example.flightmobileapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -50,21 +51,21 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the connect button */
     fun gotoControl(view: View) {
+        // try to connect to server with the given url:
         val urlString = urlInput.text.toString()
-        val connected = client.connect(urlInput.text.toString())
+        val connected = client.connect(urlString)
         if (connected == 0) {
             val text = "Can't connect, try again!"
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(applicationContext, text, duration)
+            toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
             urlInput.setText("")
         } else {
             // succeeded connecting to server:
             viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
             val intent = Intent(this, ControlsActivity::class.java)
-                intent.putExtra("url", urlString)
-
-            //intent.putExtra("client", 10)
+            intent.putExtra("url", urlString)
             startActivity(intent)
         }
     }

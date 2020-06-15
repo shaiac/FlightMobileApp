@@ -2,6 +2,8 @@ package com.example.flightmobileapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ramotion.fluidslider.FluidSlider
 import kotlinx.android.synthetic.main.activity_controls.*
@@ -13,7 +15,7 @@ class ControlsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var url = getIntent().getStringExtra("url")
+        val url = intent.getStringExtra("url")
         val connected = client.connect(url)
         if (connected == 1) {
             // client = intent.extras?.get("client") as Client // FALLING HERE
@@ -22,8 +24,15 @@ class ControlsActivity : AppCompatActivity() {
             setContentView(R.layout.activity_controls)
             setJoystick()
             setSliders()
+        } else {
+            val text = "Can't connect, go back and try again..."
+            val duration = Toast.LENGTH_LONG
+            val toast = Toast.makeText(applicationContext, text, duration)
+            toast.setGravity(Gravity.CENTER, 0, 0)
+            toast.show()
         }
     }
+
     private fun setJoystick() {
         val joystick = joystickView.right
         joystickView.setOnMoveListener {
