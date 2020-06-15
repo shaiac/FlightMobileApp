@@ -9,19 +9,21 @@ import kotlinx.android.synthetic.main.activity_second.joystickView
 import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
-    private lateinit var client: Client
+    private var client = Client()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var url = getIntent().getStringExtra("url")
+        val connected = client.connect(url)
+        if (connected == 1) {
+            // client = intent.extras?.get("client") as Client // FALLING HERE
+            //val temp = intent.getSerializableExtra("client") // RETURNS NULL
 
-       // client = intent.extras?.get("client") as Client // FALLING HERE
-        val temp = intent.getSerializableExtra("client") // RETURNS NULL
-
-        setContentView(R.layout.activity_controls)
-        setJoystick()
-        setSliders()
+            setContentView(R.layout.activity_controls)
+            setJoystick()
+            setSliders()
+        }
     }
-
     private fun setJoystick() {
         val joystick = joystickView.right
         joystickView.setOnMoveListener {
@@ -34,7 +36,8 @@ class ControlsActivity : AppCompatActivity() {
             // send aileron and elevator values server:
             client.setAileron(aileron)
             client.setElevator(elevator)
-            sendCommand()
+            client.sendJson()
+           // sendCommand()
         }
     }
 

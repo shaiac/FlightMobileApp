@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the connect button */
     fun gotoControl(view: View) {
+        val urlString = urlInput.text.toString()
         val connected = client.connect(urlInput.text.toString())
         if (connected == 0) {
             val text = "Can't connect, try again!"
@@ -60,9 +61,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             // succeeded connecting to server:
             viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
-            val intent = Intent(this, ControlsActivity::class.java).apply {
-                intent.putExtra("client", client)
-            }
+            val intent = Intent(this, ControlsActivity::class.java)
+                intent.putExtra("url", urlString)
+
             //intent.putExtra("client", 10)
             startActivity(intent)
         }

@@ -1,8 +1,19 @@
 package com.example.flightmobileapp
 
+import android.util.Log
+import com.google.gson.GsonBuilder
+
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStreamReader
 import java.io.Serializable
 import java.net.HttpURLConnection
@@ -56,10 +67,34 @@ class Client : Serializable {
         jsonParam.put("rudder", rudder.toString())
         jsonParam.put("elevator", elevator.toString())
         jsonParam.put("throttle", throttle.toString())
-        val jsonString = "aileron: " + aileron.toString() + ",rudder: " + rudder.toString() +
+        val json: String = "aileron: " + aileron.toString() + ",rudder: " + rudder.toString() +
                 ",elevator: " + elevator.toString() + ",throttle: " + throttle.toString()
+
+        val rb: RequestBody = RequestBody.create(MediaType.parse("application/json"), json)
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(urlConn.toString())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+        val api = retrofit.create(Api::class.java)
+        val body = api.post(rb).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                try {
+                    Log.d("FlightMobileApp", response.body().toString())
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        })
+
+
         // send to server:
-        con.outputStream.use { os ->
+        /* con.outputStream.use { os ->
             val input: ByteArray = jsonString.toByteArray()
             os.write(input, 0, input.size)
         }
@@ -74,5 +109,6 @@ class Client : Serializable {
             }
             println(response.toString())
         }
+    }(*/
     }
 }
