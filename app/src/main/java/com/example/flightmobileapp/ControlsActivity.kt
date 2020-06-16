@@ -59,7 +59,7 @@ class ControlsActivity : AppCompatActivity() {
                 lastElevator = elevator
             }
             if (changed) {
-                // send aileron and elevator values server:
+                // send aileron and elevator values to server:
                 client.sendJson()
                 changed = false
             }
@@ -78,6 +78,7 @@ class ControlsActivity : AppCompatActivity() {
             // send rudder to server
             val rudderDisplay = rudder.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
             rudderSeek.bubbleText = rudderDisplay.toString()
+            // check if value changed in more than 1% and send to server:
             if ((rudder > 1.01 * lastRudder) || (rudder < 0.99 * lastRudder)) {
                 client.setRudder(rudder.toDouble())
                 client.sendJson()
@@ -94,6 +95,7 @@ class ControlsActivity : AppCompatActivity() {
             // send throttle to server
             val throttleDisplay = throttle.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
             throttleSeek.bubbleText = throttleDisplay.toString()
+            // check if value changed in more than 1% and send to server:
             if ((throttle > 1.01 * lastThrottle) || (throttle < 0.99 * lastThrottle)) {
                 client.setThrottle(throttle.toDouble())
                 client.sendJson()
