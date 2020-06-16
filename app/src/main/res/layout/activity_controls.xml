@@ -13,7 +13,7 @@
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickView"
-        android:layout_width="312dp"
+        android:layout_width="297dp"
         android:layout_height="297dp"
         android:padding="0dp"
         app:JV_backgroundColor="#0059b3"

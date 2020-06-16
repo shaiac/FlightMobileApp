@@ -12,6 +12,10 @@ import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
     private var client = Client()
+    private var lastAileron = 0.0
+    private var lastElevator = 0.0
+    private var lastThrottle = 0.0
+    private var lastRudder = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,7 @@ class ControlsActivity : AppCompatActivity() {
 
     private fun setJoystick() {
         val joystick = joystickView.right
+        var changed = false
         joystickView.setOnMoveListener {
             angle, strength ->
             val aileron = kotlin.math.cos(Math.toRadians(angle.toDouble())) * strength / 100
@@ -42,16 +47,23 @@ class ControlsActivity : AppCompatActivity() {
             // show values on screen:
             aileronText.setText(aileron.toDouble().toString())
             elevatorText.setText(elevator.toDouble().toString())
-            // send aileron and elevator values server:
-            client.setAileron(aileron)
-            client.setElevator(elevator)
-            client.sendJson()
-           // sendCommand()
+            // check if values changed in more than 1%:
+            if ((aileron > 1.01 * lastAileron) || (aileron < 0.99 * lastAileron)) {
+                client.setAileron(aileron)
+                changed = true
+                lastAileron = aileron
+            }
+            if ((elevator> 1.01 * lastElevator) || (elevator < 0.99 * lastElevator)) {
+                client.setElevator(elevator)
+                changed = true
+                lastElevator = elevator
+            }
+            if (changed) {
+                // send aileron and elevator values server:
+                client.sendJson()
+                changed = false
+            }
         }
-    }
-
-    private fun sendCommand() {
-        client.sendJson()
     }
 
     private fun setSliders() {
@@ -66,8 +78,11 @@ class ControlsActivity : AppCompatActivity() {
             // send rudder to server
             val rudderDisplay = rudder.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
             rudderSeek.bubbleText = rudderDisplay.toString()
-            client.setRudder(rudder.toDouble())
-            sendCommand()
+            if ((rudder > 1.01 * lastRudder) || (rudder < 0.99 * lastRudder)) {
+                client.setRudder(rudder.toDouble())
+                client.sendJson()
+                lastRudder = rudder.toDouble()
+            }
         }
         // set throttle slider (seek bar)
         val throttleSeek = findViewById<FluidSlider>(R.id.fluidSliderThrottle)
@@ -79,8 +94,11 @@ class ControlsActivity : AppCompatActivity() {
             // send throttle to server
             val throttleDisplay = throttle.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
             throttleSeek.bubbleText = throttleDisplay.toString()
-            client.setThrottle(throttle.toDouble())
-            sendCommand()
+            if ((throttle > 1.01 * lastThrottle) || (throttle < 0.99 * lastThrottle)) {
+                client.setThrottle(throttle.toDouble())
+                client.sendJson()
+                lastThrottle = throttle.toDouble()
+            }
         }
     }
 

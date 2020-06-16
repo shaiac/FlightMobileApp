@@ -2,7 +2,6 @@ package com.example.flightmobileapp
 
 import android.util.Log
 import com.google.gson.GsonBuilder
-
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -12,9 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.BufferedReader
 import java.io.IOException
-import java.io.InputStreamReader
 import java.io.Serializable
 import java.net.HttpURLConnection
 import java.net.URL
@@ -81,6 +78,7 @@ class Client : Serializable {
         val api = retrofit.create(Api::class.java)
         val body = api.post(rb).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                var x = 1
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
