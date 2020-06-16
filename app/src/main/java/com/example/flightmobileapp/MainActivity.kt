@@ -1,6 +1,7 @@
 package com.example.flightmobileapp
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -9,6 +10,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.activity_second.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import android.graphics.Bitmap
+import android.util.Log
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.IOException
+import java.io.Serializable
+import java.net.HttpURLConnection
+import java.net.URL
 
 class MainActivity : AppCompatActivity() {
     private var viewModel: LocalHostsViewModel? = null
@@ -20,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         init()
     }
     //init the view only one time
@@ -67,6 +86,36 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ControlsActivity::class.java)
             intent.putExtra("url", urlString)
             startActivity(intent)
+           /** client.sendImg()
+            var data = intent.getByteArrayExtra("image")
+            val v = data?.size?.let { BitmapFactory.decodeByteArray(data,0,it) }
+            runOnUiThread {
+                image.setImageBitmap(v)
+            } */
+           /*val gson = GsonBuilder()
+               .setLenient()
+               .create()
+            val retrofit = Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:5001")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+            val api = retrofit.create(Api::class.java)
+            val body = api.getImg().enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    val I = response.body()?.byteStream()
+                    val B = BitmapFactory.decodeStream(I)
+                    runOnUiThread {
+                        image1.setImageBitmap(B)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    var x =1
+                }
+        })*/
         }
     }
 

@@ -1,13 +1,24 @@
 package com.example.flightmobileapp
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.GsonBuilder
 import com.ramotion.fluidslider.FluidSlider
 import kotlinx.android.synthetic.main.activity_controls.*
+import kotlinx.android.synthetic.main.activity_controls.aileronText
+import kotlinx.android.synthetic.main.activity_controls.elevatorText
+import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.activity_second.joystickView
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
@@ -28,6 +39,29 @@ class ControlsActivity : AppCompatActivity() {
             setContentView(R.layout.activity_controls)
             setJoystick()
             setSliders()
+            val gson = GsonBuilder()
+                .setLenient()
+                .create()
+            val retrofit = Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:5001")
+                .addConverterFactory(GsonConverterFactory.create(gson)).build()
+            val api = retrofit.create(Api::class.java)
+            val body = api.getImg().enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    val I = response.body()?.byteStream()
+                    val B = BitmapFactory.decodeStream(I)
+                    runOnUiThread {
+                        image1.setImageBitmap(B)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    var x =1
+                }
+            })
         } else {
             val text = "Can't connect, go back and try again..."
             val duration = Toast.LENGTH_LONG

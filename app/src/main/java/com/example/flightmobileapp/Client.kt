@@ -1,6 +1,9 @@
 package com.example.flightmobileapp
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.GsonBuilder
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -15,11 +18,14 @@ import java.io.IOException
 import java.io.Serializable
 import java.net.HttpURLConnection
 import java.net.URL
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 
 
-class Client : Serializable {
+class Client : AppCompatActivity() {
     private lateinit var urlConn: URL
     private lateinit var con: HttpURLConnection
+    public lateinit var B: Bitmap
     private var aileron: Double = 0.0
     private var elevator: Double = 0.0
     private var throttle: Double = 0.0
@@ -52,7 +58,30 @@ class Client : Serializable {
     }
 
 
+    fun sendImg(){
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://10.0.2.2:5001")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+        val api = retrofit.create(Api::class.java)
+        val body = api.getImg().enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+                val intent = Intent(this@Client, MainActivity::class.java).apply{
+                    putExtra("image", response.body()!!.bytes())
+                }
+            }
 
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+    })
+    }
     fun sendJson() {
         con.requestMethod = "POST"
         con.setRequestProperty("Content-Type", "application/json; utf-8")
@@ -64,15 +93,17 @@ class Client : Serializable {
         jsonParam.put("rudder", rudder.toString())
         jsonParam.put("elevator", elevator.toString())
         jsonParam.put("throttle", throttle.toString())
-        val json: String = "aileron: " + aileron.toString() + ",rudder: " + rudder.toString() +
-                ",elevator: " + elevator.toString() + ",throttle: " + throttle.toString()
+        //val json: String = "aileron: " + aileron.toString() + ",rudder: " + rudder.toString() +
+          //      ",elevator: " + elevator.toString() + ",throttle: " + throttle.toString()
+        val json: String = "{\"aileron\": $aileron, \n \"rudder\": $aileron, \n \"elevator\": $aileron, \n \"throttle\": $aileron, \n}"
 
         val rb: RequestBody = RequestBody.create(MediaType.parse("application/json"), json)
         val gson = GsonBuilder()
             .setLenient()
             .create()
+        val str = urlConn.toString()
         val retrofit = Retrofit.Builder()
-            .baseUrl(urlConn.toString())
+            .baseUrl(str)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
         val api = retrofit.create(Api::class.java)

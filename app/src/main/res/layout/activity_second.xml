@@ -121,5 +121,19 @@
         app:layout_constraintTop_toTopOf="@+id/joystickView"
         app:layout_constraintVertical_bias="0.341" />
 
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="370dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/aileronText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.69"
+        tools:srcCompat="@tools:sample/avatars" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
