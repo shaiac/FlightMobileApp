@@ -89,19 +89,14 @@ class Client : AppCompatActivity() {
             }
     })
     }
-    fun sendJson() {
+    
+    fun sendJson(): Int {
+        var statusCode = 0
         con.requestMethod = "POST"
         con.setRequestProperty("Content-Type", "application/json; utf-8")
         con.setRequestProperty("Accept", "application/json")
         con.doOutput = true;
         // create json and send it to server
-        val jsonParam = JSONObject()
-        jsonParam.put("aileron", aileron.toString())
-        jsonParam.put("rudder", rudder.toString())
-        jsonParam.put("elevator", elevator.toString())
-        jsonParam.put("throttle", throttle.toString())
-        //val json: String = "aileron: " + aileron.toString() + ",rudder: " + rudder.toString() +
-          //      ",elevator: " + elevator.toString() + ",throttle: " + throttle.toString()
         val json: String = "{\"aileron\":$aileron,\n\"rudder\":$rudder,\n\"elevator\":$elevator,\n\"throttle\":$throttle\n}"
         //val json = buidJsonObject()
         val rb: RequestBody = RequestBody.create(MediaType.parse("application/json"), json)
@@ -116,36 +111,23 @@ class Client : AppCompatActivity() {
         val api = retrofit.create(Api::class.java)
         val body = api.post(rb).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                var x = 1
+                statusCode = 500
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 try {
-                    Log.d("FlightMobileApp", response.body().toString())
+                    if (response.body().toString() != "200") {
+                        statusCode = 404
+                    }
+                   // Log.d("FlightMobileApp", response.body().toString())
                 } catch (e: IOException) {
-                    e.printStackTrace()
+                    statusCode = 400
+                  //  e.printStackTrace()
                 }
             }
         })
 
-
-        // send to server:
-        /* con.outputStream.use { os ->
-            val input: ByteArray = jsonString.toByteArray()
-            os.write(input, 0, input.size)
-        }
-        // get response:
-        BufferedReader(
-            InputStreamReader(con.inputStream, "utf-8")
-        ).use { br ->
-            val response = StringBuilder()
-            var responseLine: String? = null
-            while (br.readLine().also { responseLine = it } != null) {
-                response.append(responseLine!!.trim { it <= ' ' })
-            }
-            println(response.toString())
-        }
-    }(*/
+        return statusCode
     }
 
     @Throws(JSONException::class)

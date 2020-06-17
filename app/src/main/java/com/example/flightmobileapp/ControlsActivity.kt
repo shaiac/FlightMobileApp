@@ -93,9 +93,15 @@ class ControlsActivity : AppCompatActivity() {
                 lastElevator = elevator
             }
             if (changed) {
-                // send aileron and elevator values to server:
-                client.sendJson()
                 changed = false
+                // send aileron and elevator values to server:
+                var res = client.sendJson()
+                if (res != 200) {
+                    val errorText = "Can't send values to server"
+                    val toast = Toast.makeText(applicationContext, errorText, Toast.LENGTH_LONG)
+                    toast.setGravity(Gravity.CENTER, 0, 0)
+                    toast.show()
+                }
             }
         }
     }
@@ -115,7 +121,6 @@ class ControlsActivity : AppCompatActivity() {
             // check if value changed in more than 1% and send to server:
             if ((rudder > 1.01 * lastRudder) || (rudder < 0.99 * lastRudder)) {
                 client.setRudder(rudder.toDouble())
-                client.sendJson()
                 lastRudder = rudder.toDouble()
             }
         }
