@@ -86,12 +86,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ControlsActivity::class.java)
             intent.putExtra("url", urlString)
             startActivity(intent)
-           /** client.sendImg()
+            client.sendImg()
             var data = intent.getByteArrayExtra("image")
             val v = data?.size?.let { BitmapFactory.decodeByteArray(data,0,it) }
             runOnUiThread {
-                image.setImageBitmap(v)
-            } */
+                image1.setImageBitmap(v)
+            }
            /*val gson = GsonBuilder()
                .setLenient()
                .create()

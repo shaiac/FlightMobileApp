@@ -65,6 +65,10 @@ class Client : AppCompatActivity() {
     }
 
     fun sendImg(){
+        con.requestMethod = "GET"
+        con.setRequestProperty("Content-Type", "application/json; utf-8")
+        con.setRequestProperty("Accept", "application/json")
+        con.doOutput = true;
         val gson = GsonBuilder()
             .setLenient()
             .create()
