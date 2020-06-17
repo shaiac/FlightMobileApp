@@ -20,6 +20,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONException
 
 
 class Client : AppCompatActivity() {
@@ -58,12 +59,18 @@ class Client : AppCompatActivity() {
     }
 
 
+    fun getImage() {
+        con.requestMethod = "GET"
+
+    }
+
     fun sendImg(){
         val gson = GsonBuilder()
             .setLenient()
             .create()
+        val str = urlConn.toString()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5001")
+            .baseUrl(str)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
         val api = retrofit.create(Api::class.java)
@@ -95,8 +102,8 @@ class Client : AppCompatActivity() {
         jsonParam.put("throttle", throttle.toString())
         //val json: String = "aileron: " + aileron.toString() + ",rudder: " + rudder.toString() +
           //      ",elevator: " + elevator.toString() + ",throttle: " + throttle.toString()
-        val json: String = "{\"aileron\": $aileron, \n \"rudder\": $aileron, \n \"elevator\": $aileron, \n \"throttle\": $aileron, \n}"
-
+        val json: String = "{\"aileron\":$aileron,\n\"rudder\":$rudder,\n\"elevator\":$elevator,\n\"throttle\":$throttle\n}"
+        //val json = buidJsonObject()
         val rb: RequestBody = RequestBody.create(MediaType.parse("application/json"), json)
         val gson = GsonBuilder()
             .setLenient()
@@ -139,5 +146,16 @@ class Client : AppCompatActivity() {
             println(response.toString())
         }
     }(*/
+    }
+
+    @Throws(JSONException::class)
+    private fun buidJsonObject(): JSONObject {
+
+        val jsonObject = JSONObject()
+        jsonObject.accumulate("aileron", "0.5")
+        jsonObject.accumulate("rudder", "0.5")
+        jsonObject.accumulate("elevator", "0.5")
+        jsonObject.accumulate("throttle", "0.5")
+        return jsonObject
     }
 }

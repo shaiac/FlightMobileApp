@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_controls.elevatorText
 import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.activity_second.joystickView
 import okhttp3.ResponseBody
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,41 +35,39 @@ class ControlsActivity : AppCompatActivity() {
         val url = intent.getStringExtra("url")
         val connected = client.connect(url)
         if (connected == 1) {
-            // client = intent.extras?.get("client") as Client // FALLING HERE
-            //val temp = intent.getSerializableExtra("client") // RETURNS NULL
-
             setContentView(R.layout.activity_controls)
             setJoystick()
             setSliders()
-            val gson = GsonBuilder()
-                .setLenient()
-                .create()
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5001")
-                .addConverterFactory(GsonConverterFactory.create(gson)).build()
-            val api = retrofit.create(Api::class.java)
-            val body = api.getImg().enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    val I = response.body()?.byteStream()
-                    val B = BitmapFactory.decodeStream(I)
-                    runOnUiThread {
-                        image1.setImageBitmap(B)
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    var x =1
-                }
-            })
-        } else {
-            val text = "Can't connect, go back and try again..."
-            val duration = Toast.LENGTH_LONG
-            val toast = Toast.makeText(applicationContext, text, duration)
-            toast.setGravity(Gravity.CENTER, 0, 0)
-            toast.show()
+//            val gson = GsonBuilder()
+//                .setLenient()
+//                .create()
+//            val retrofit = Retrofit.Builder()
+//                .baseUrl("http://10.0.2.2:5001")
+//                .addConverterFactory(GsonConverterFactory.create(gson)).build()
+//            val api = retrofit.create(Api::class.java)
+//            val body = api.getImg().enqueue(object : Callback<ResponseBody> {
+//                override fun onResponse(
+//                    call: Call<ResponseBody>,
+//                    response: Response<ResponseBody>
+//                ) {
+//                    val I = response.body()?.byteStream()
+//                    val B = BitmapFactory.decodeStream(I)
+//                    runOnUiThread {
+//                        image1.setImageBitmap(B)
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                    var x =1
+//                }
+//            })
+//        } else {
+//            val text = "Can't connect, go back and try again..."
+//            val duration = Toast.LENGTH_LONG
+//            val toast = Toast.makeText(applicationContext, text, duration)
+//            toast.setGravity(Gravity.CENTER, 0, 0)
+//            toast.show()
+//        }
         }
     }
 
@@ -137,7 +137,6 @@ class ControlsActivity : AppCompatActivity() {
             }
         }
     }
-
 
 }
 
