@@ -45,28 +45,36 @@ class ControlsActivity : AppCompatActivity() {
     }
 
     fun getImage(url : String) {
-        image = findViewById(R.id.image1)
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
-        val retrofit = Retrofit.Builder()
-            .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-        val api = retrofit.create(Api::class.java)
-        val body = api.getImg().enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                val I = response.body()?.byteStream()
-                val B = BitmapFactory.decodeStream(I)
-                runOnUiThread{
-                    image.setImageBitmap(B)
-                }
+        Thread({
+            while(true) {
+                image = findViewById(R.id.image1)
+                val gson = GsonBuilder()
+                    .setLenient()
+                    .create()
+                val retrofit = Retrofit.Builder()
+                    .baseUrl(url)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build()
+                val api = retrofit.create(Api::class.java)
+                val body = api.getImg().enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
+                        val I = response.body()?.byteStream()
+                        val B = BitmapFactory.decodeStream(I)
+                        runOnUiThread {
+                            image.setImageBitmap(B)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        var i: Int
+                        i = 5
+                    }
+                })
             }
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                var i : Int
-                i = 5
-            }
-        })
+        }).start()
     }
 
     private fun setJoystick() {
