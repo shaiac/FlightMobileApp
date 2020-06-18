@@ -1,6 +1,4 @@
 package com.example.flightmobileapp
-
-import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Gravity
@@ -12,11 +10,8 @@ import com.ramotion.fluidslider.FluidSlider
 import kotlinx.android.synthetic.main.activity_controls.*
 import kotlinx.android.synthetic.main.activity_controls.aileronText
 import kotlinx.android.synthetic.main.activity_controls.elevatorText
-import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.activity_second.joystickView
 import okhttp3.ResponseBody
-import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,14 +35,14 @@ class ControlsActivity : AppCompatActivity() {
             setContentView(R.layout.activity_second)
             setJoystick()
             setSliders()
+            image = findViewById(R.id.image1)
             getImage(url)
         }
     }
 
     fun getImage(url : String) {
-        Thread({
+        Thread {
             while(true) {
-                image = findViewById(R.id.image1)
                 val gson = GsonBuilder()
                     .setLenient()
                     .create()
@@ -67,14 +62,14 @@ class ControlsActivity : AppCompatActivity() {
                             image.setImageBitmap(B)
                         }
                     }
-
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                         var i: Int
                         i = 5
                     }
                 })
+                Thread.sleep(300)
             }
-        }).start()
+        }.start()
     }
 
     private fun setJoystick() {
@@ -143,8 +138,7 @@ class ControlsActivity : AppCompatActivity() {
             // check if value changed in more than 1% and send to server:
             if ((throttle > 1.01 * lastThrottle) || (throttle < 0.99 * lastThrottle)) {
                 client.setThrottle(throttle.toDouble())
-                //client.sendJson()
-                client.sendImg()
+                client.sendJson()
                 lastThrottle = throttle.toDouble()
             }
         }

@@ -30,7 +30,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var image1 : ImageView
     private var viewModel: LocalHostsViewModel? = null
     private var db: LocalHostsRoomDatabase? = null
     private var localHostDao: LocalHostDao? = null
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         init()
     }
     //init the view only one time
@@ -88,13 +86,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ControlsActivity::class.java)
             intent.putExtra("url", urlString)
             startActivity(intent)
-
-//            client.sendImg()
-//            var data = intent.getByteArrayExtra("image")
-//            val v = data?.size?.let { BitmapFactory.decodeByteArray(data,0,it) }
-//            runOnUiThread {
-//                image1.setImageBitmap(v)
-//            }
         }
     }
 
