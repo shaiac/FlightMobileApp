@@ -16,6 +16,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import android.graphics.Bitmap
 import android.util.Log
+import android.widget.ImageView
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -29,6 +30,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var image1 : ImageView
     private var viewModel: LocalHostsViewModel? = null
     private var db: LocalHostsRoomDatabase? = null
     private var localHostDao: LocalHostDao? = null
@@ -86,36 +88,13 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ControlsActivity::class.java)
             intent.putExtra("url", urlString)
             startActivity(intent)
-            client.sendImg()
-            var data = intent.getByteArrayExtra("image")
-            val v = data?.size?.let { BitmapFactory.decodeByteArray(data,0,it) }
-            runOnUiThread {
-                image1.setImageBitmap(v)
-            }
-           /*val gson = GsonBuilder()
-               .setLenient()
-               .create()
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5001")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
-            val api = retrofit.create(Api::class.java)
-            val body = api.getImg().enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    val I = response.body()?.byteStream()
-                    val B = BitmapFactory.decodeStream(I)
-                    runOnUiThread {
-                        image1.setImageBitmap(B)
-                    }
-                }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    var x =1
-                }
-        })*/
+//            client.sendImg()
+//            var data = intent.getByteArrayExtra("image")
+//            val v = data?.size?.let { BitmapFactory.decodeByteArray(data,0,it) }
+//            runOnUiThread {
+//                image1.setImageBitmap(v)
+//            }
         }
     }
 

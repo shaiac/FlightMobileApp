@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Gravity
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.GsonBuilder
@@ -29,46 +30,43 @@ class ControlsActivity : AppCompatActivity() {
     private var lastElevator = 0.0
     private var lastThrottle = 0.0
     private var lastRudder = 0.0
+    lateinit var image : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val url = intent.getStringExtra("url")
         val connected = client.connect(url)
         if (connected == 1) {
-            setContentView(R.layout.activity_controls)
+            setContentView(R.layout.activity_second)
             setJoystick()
             setSliders()
-//            val gson = GsonBuilder()
-//                .setLenient()
-//                .create()
-//            val retrofit = Retrofit.Builder()
-//                .baseUrl("http://10.0.2.2:5001")
-//                .addConverterFactory(GsonConverterFactory.create(gson)).build()
-//            val api = retrofit.create(Api::class.java)
-//            val body = api.getImg().enqueue(object : Callback<ResponseBody> {
-//                override fun onResponse(
-//                    call: Call<ResponseBody>,
-//                    response: Response<ResponseBody>
-//                ) {
-//                    val I = response.body()?.byteStream()
-//                    val B = BitmapFactory.decodeStream(I)
-//                    runOnUiThread {
-//                        image1.setImageBitmap(B)
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                    var x =1
-//                }
-//            })
-//        } else {
-//            val text = "Can't connect, go back and try again..."
-//            val duration = Toast.LENGTH_LONG
-//            val toast = Toast.makeText(applicationContext, text, duration)
-//            toast.setGravity(Gravity.CENTER, 0, 0)
-//            toast.show()
-//        }
+            getImage(url)
         }
+    }
+
+    fun getImage(url : String) {
+        image = findViewById(R.id.image1)
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+        val api = retrofit.create(Api::class.java)
+        val body = api.getImg().enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                val I = response.body()?.byteStream()
+                val B = BitmapFactory.decodeStream(I)
+                runOnUiThread{
+                    image.setImageBitmap(B)
+                }
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                var i : Int
+                i = 5
+            }
+        })
     }
 
     private fun setJoystick() {
@@ -137,7 +135,8 @@ class ControlsActivity : AppCompatActivity() {
             // check if value changed in more than 1% and send to server:
             if ((throttle > 1.01 * lastThrottle) || (throttle < 0.99 * lastThrottle)) {
                 client.setThrottle(throttle.toDouble())
-                client.sendJson()
+                //client.sendJson()
+                client.sendImg()
                 lastThrottle = throttle.toDouble()
             }
         }

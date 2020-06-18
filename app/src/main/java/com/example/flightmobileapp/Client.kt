@@ -1,5 +1,6 @@
 package com.example.flightmobileapp
 
+import android.app.Notification
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
@@ -58,12 +59,6 @@ class Client : AppCompatActivity() {
         return 1
     }
 
-
-    fun getImage() {
-        con.requestMethod = "GET"
-
-    }
-
     fun sendImg(){
         con.requestMethod = "GET"
         con.setRequestProperty("Content-Type", "application/json; utf-8")
@@ -79,17 +74,14 @@ class Client : AppCompatActivity() {
             .build()
         val api = retrofit.create(Api::class.java)
         val body = api.getImg().enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 val intent = Intent(this@Client, MainActivity::class.java).apply{
-                    putExtra("image", response.body()!!.bytes())
+                    intent.putExtra("image", response.body()!!.bytes())
                 }
             }
-
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                TODO("Not yet implemented")
+                var i : Int
+                i = 5
             }
     })
     }
