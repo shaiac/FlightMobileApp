@@ -15,6 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    private var isConnected = false;
     private var viewModel: LocalHostsViewModel? = null
     private var db: LocalHostsRoomDatabase? = null
     private var localHostDao: LocalHostDao? = null

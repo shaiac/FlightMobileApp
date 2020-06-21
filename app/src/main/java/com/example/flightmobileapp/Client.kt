@@ -57,6 +57,10 @@ class Client(private var context: Context) : AppCompatActivity() {
     fun getImage(image : ImageView) {
         val body = api.getImg().enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() != 200) {
+                    showError("Can't get image from server")
+                    return
+                }
                 val I = response.body()?.byteStream()
                 val B = BitmapFactory.decodeStream(I)
                 runOnUiThread {
@@ -102,7 +106,7 @@ class Client(private var context: Context) : AppCompatActivity() {
             }
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 try {
-                    if (response.body().toString() != "200") {
+                    if (response.code() != 200) {
                         showError("Can't process values in server")
                     }
                 } catch (e: IOException) {
@@ -119,5 +123,4 @@ class Client(private var context: Context) : AppCompatActivity() {
         toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()
     }
-
 }

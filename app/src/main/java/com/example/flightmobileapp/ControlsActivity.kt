@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_second.joystickView
 import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
+    private var getImage = false
     private var client = Client(this)
     private var lastAileron = 0.0
     private var lastElevator = 0.0
@@ -25,13 +26,14 @@ class ControlsActivity : AppCompatActivity() {
             setJoystick()
             setSliders()
             image = findViewById(R.id.image1)
+            getImage = true
             getImage()
         }
     }
 
     private fun getImage() {
         Thread {
-            while(true) {
+            while(getImage) {
                 client.getImage(image)
                 Thread.sleep(300)
             }
