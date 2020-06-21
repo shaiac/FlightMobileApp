@@ -100,4 +100,5 @@ class MainActivity : AppCompatActivity() {
             else -> urlInput.setText(localHostsList[4].text)
         }
     }
+
 }
