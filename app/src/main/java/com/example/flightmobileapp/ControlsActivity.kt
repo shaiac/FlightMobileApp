@@ -31,6 +31,22 @@ class ControlsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        getImage = true
+        getImage()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        getImage = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        getImage = false
+    }
+
     private fun getImage() {
         Thread {
             while(getImage) {
