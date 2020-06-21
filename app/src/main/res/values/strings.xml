@@ -16,4 +16,11 @@
     <string name="arrow_down">arrow_down</string>
     <string name="arrow_left">arrow_left</string>
     <string name="arrow_right">arrow_right</string>
+        <string name="app_name2">Spinner Example</string>
+    <string name="selected_item">Selected item:</string>
+
+    <string-array name="Time">
+        <item>night</item>
+        <item>day</item>
+    </string-array>
 </resources>

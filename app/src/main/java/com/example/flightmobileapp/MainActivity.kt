@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         // try to connect to server with the given url:
         val urlString = urlInput.text.toString()
         val connected = client.connect(urlString)
+
         if (connected == 0) {
             val text = "Can't connect, try again!"
             val duration = Toast.LENGTH_LONG
