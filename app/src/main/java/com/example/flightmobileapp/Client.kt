@@ -1,5 +1,8 @@
 package com.example.flightmobileapp
 
+import android.content.Context
+import android.view.Gravity
+import android.widget.Toast
 import com.google.gson.GsonBuilder
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -14,13 +17,14 @@ import java.net.HttpURLConnection
 import java.net.URL
 import androidx.appcompat.app.AppCompatActivity
 
-class Client : AppCompatActivity() {
+class Client(private var context: Context) : AppCompatActivity() {
     private lateinit var urlConn: URL
     private lateinit var con: HttpURLConnection
     private var aileron: Double = 0.0
     private var elevator: Double = 0.0
     private var throttle: Double = 0.0
     private var rudder: Double = 0.0
+    private lateinit var api: Api
 
     fun setAileron(value: Double) {
         aileron = value
@@ -45,45 +49,54 @@ class Client : AppCompatActivity() {
             return 0
         }
         urlConn = tempUrl
+        createAPI()
         return 1
     }
 
-    fun sendJson(): Int {
-        var statusCode = 0
+    private fun createAPI() {
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        val url = urlConn.toString()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+        api = retrofit.create(Api::class.java)
+    }
+
+    fun sendJson() {
         con.requestMethod = "POST"
         con.setRequestProperty("Content-Type", "application/json; utf-8")
         con.setRequestProperty("Accept", "application/json")
         con.doOutput = true;
         // create json and send it to server
-        val json: String = "{\"aileron\":$aileron,\n\"rudder\":$rudder,\n\"elevator\":$elevator,\n\"throttle\":$throttle\n}"
-        //val json = buidJsonObject()
+        val json: String =
+            "{\"aileron\":$aileron,\n\"rudder\":$rudder,\n\"elevator\":$elevator,\n\"throttle\":$throttle\n}"
         val rb: RequestBody = RequestBody.create(MediaType.parse("application/json"), json)
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
-        val str = urlConn.toString()
-        val retrofit = Retrofit.Builder()
-            .baseUrl(str)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-        val api = retrofit.create(Api::class.java)
-        val body = api.post(rb).enqueue(object : Callback<ResponseBody> {
+        api.post(rb).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                statusCode = 500
+                showError("Server isn't responding")
+                return
             }
-
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 try {
                     if (response.body().toString() != "200") {
-                        statusCode = 404
+                        showError("Can't process values in server")
                     }
-                   // Log.d("FlightMobileApp", response.body().toString())
                 } catch (e: IOException) {
-                    statusCode = 400
-                  //  e.printStackTrace()
+                    showError("Can't process values in server")
                 }
+                return
             }
         })
-        return statusCode
     }
+
+    fun showError(msg: String) {
+        val duration = Toast.LENGTH_LONG
+        val toast = Toast.makeText(context, msg, duration)
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
 }

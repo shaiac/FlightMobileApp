@@ -1,7 +1,6 @@
 package com.example.flightmobileapp
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -10,24 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_second.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import android.graphics.Bitmap
-import android.util.Log
-import android.widget.ImageView
-import okhttp3.MediaType
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.IOException
-import java.io.Serializable
-import java.net.HttpURLConnection
-import java.net.URL
 
 class MainActivity : AppCompatActivity() {
     private var viewModel: LocalHostsViewModel? = null
@@ -35,12 +16,14 @@ class MainActivity : AppCompatActivity() {
     private var localHostDao: LocalHostDao? = null
     private var localHostsList : ArrayList<TextView> = ArrayList()
     private lateinit var urlInput: EditText
-    private var client = Client()
+    private var client = Client(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
     }
+
     //init the view only one time
     private fun init() {
         db = LocalHostsRoomDatabase.getDatabase(context = this)
@@ -58,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         this.localHostsList.add(findViewById(R.id.localhost3))
         this.localHostsList.add(findViewById(R.id.localhost4))
         this.localHostsList.add(findViewById(R.id.localhost5))
-        var listFromDataBase : List<LocalHost>? =  viewModel?.getAllList(localHostDao)
+        val listFromDataBase : List<LocalHost>? =  viewModel?.getAllList(localHostDao)
         var i : Int = 0
         if (listFromDataBase != null) {
             for (localHost in listFromDataBase) {

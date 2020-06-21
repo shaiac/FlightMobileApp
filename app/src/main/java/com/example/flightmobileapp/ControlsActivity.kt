@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.GsonBuilder
 import com.ramotion.fluidslider.FluidSlider
-import kotlinx.android.synthetic.main.activity_controls.*
 import kotlinx.android.synthetic.main.activity_controls.aileronText
 import kotlinx.android.synthetic.main.activity_controls.elevatorText
 import kotlinx.android.synthetic.main.activity_second.joystickView
@@ -20,12 +19,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
-    private var client = Client()
+    private var client = Client(this)
     private var lastAileron = 0.0
     private var lastElevator = 0.0
     private var lastThrottle = 0.0
     private var lastRudder = 0.0
     lateinit var image : ImageView
+    var begin = System.currentTimeMillis()
+    var end = System.currentTimeMillis()
+    var commError = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,7 @@ class ControlsActivity : AppCompatActivity() {
             setJoystick()
             setSliders()
             image = findViewById(R.id.image1)
-            getImage(url)
+          //  getImage(url)
         }
     }
 
@@ -63,8 +65,10 @@ class ControlsActivity : AppCompatActivity() {
                         }
                     }
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        var i: Int
-                        i = 5
+                        val errorText = "Can't get image from server"
+                        val toast = Toast.makeText(applicationContext, errorText, Toast.LENGTH_SHORT)
+                        toast.setGravity(Gravity.CENTER, 0, 0)
+                        toast.show()
                     }
                 })
                 Thread.sleep(300)
@@ -96,14 +100,29 @@ class ControlsActivity : AppCompatActivity() {
             if (changed) {
                 changed = false
                 // send aileron and elevator values to server:
-                var res = client.sendJson()
-                if (res != 200) {
-                    val errorText = "Can't send values to server"
-                    val toast = Toast.makeText(applicationContext, errorText, Toast.LENGTH_LONG)
-                    toast.setGravity(Gravity.CENTER, 0, 0)
-                    toast.show()
-                }
+             //   GlobalScope.launch { // launch new coroutine in background and continue
+                   // val res =
+                        client.sendJson()
+                  //  checkSent(res)
+              //  }
             }
+        }
+    }
+
+    private fun checkSent(res: Int) {
+        if (res < 0) {
+//            end = System.currentTimeMillis()
+            val errorText: String
+//            if (end - begin > 10000) {
+//                errorText = "server hasn't responded for 10 seconds," +
+//                        "please return to previous screen"
+//                begin = System.currentTimeMillis()
+//            } else {
+                errorText = "Can't send values to server"
+//            }
+            val toast = Toast.makeText(applicationContext, errorText, Toast.LENGTH_SHORT)
+            toast.setGravity(Gravity.CENTER, 0, 0)
+            toast.show()
         }
     }
 
@@ -122,6 +141,7 @@ class ControlsActivity : AppCompatActivity() {
             // check if value changed in more than 1% and send to server:
             if ((rudder > 1.01 * lastRudder) || (rudder < 0.99 * lastRudder)) {
                 client.setRudder(rudder.toDouble())
+                client.sendJson()
                 lastRudder = rudder.toDouble()
             }
         }
@@ -143,6 +163,5 @@ class ControlsActivity : AppCompatActivity() {
             }
         }
     }
-
 }
 
