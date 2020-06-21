@@ -42,7 +42,6 @@ class ControlsActivity : AppCompatActivity() {
 
     fun getImage(url : String) {
         Thread {
-            while(true) {
                 val gson = GsonBuilder()
                     .setLenient()
                     .create()
@@ -51,6 +50,7 @@ class ControlsActivity : AppCompatActivity() {
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
                 val api = retrofit.create(Api::class.java)
+            while(true) {
                 val body = api.getImg().enqueue(object : Callback<ResponseBody> {
                     override fun onResponse(
                         call: Call<ResponseBody>,
