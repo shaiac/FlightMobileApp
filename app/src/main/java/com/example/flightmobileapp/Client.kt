@@ -1,7 +1,9 @@
 package com.example.flightmobileapp
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.Gravity
+import android.widget.ImageView
 import android.widget.Toast
 import com.google.gson.GsonBuilder
 import okhttp3.MediaType
@@ -52,6 +54,28 @@ class Client(private var context: Context) : AppCompatActivity() {
         createAPI()
         return 1
     }
+
+    fun getImage(image : ImageView) {
+        val body = api.getImg().enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+                val I = response.body()?.byteStream()
+                val B = BitmapFactory.decodeStream(I)
+                runOnUiThread {
+                    image.setImageBitmap(B)
+                }
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                val errorText = "Can't get image from server"
+                val toast = Toast.makeText(applicationContext, errorText, Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.CENTER, 0, 0)
+                toast.show()
+            }
+        })
+    }
+
 
     private fun createAPI() {
         val gson = GsonBuilder()

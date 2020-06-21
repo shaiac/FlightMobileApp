@@ -32,45 +32,20 @@ class ControlsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val url = intent.getStringExtra("url")
-        val connected = client.connect(url)
+        val connected = client.connect(url!!)
         if (connected == 1) {
             setContentView(R.layout.activity_second)
             setJoystick()
             setSliders()
             image = findViewById(R.id.image1)
-          //  getImage(url)
+            getImage()
         }
     }
 
-    fun getImage(url : String) {
+    private fun getImage() {
         Thread {
-                val gson = GsonBuilder()
-                    .setLenient()
-                    .create()
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(url)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build()
-                val api = retrofit.create(Api::class.java)
             while(true) {
-                val body = api.getImg().enqueue(object : Callback<ResponseBody> {
-                    override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: Response<ResponseBody>
-                    ) {
-                        val I = response.body()?.byteStream()
-                        val B = BitmapFactory.decodeStream(I)
-                        runOnUiThread {
-                            image.setImageBitmap(B)
-                        }
-                    }
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        val errorText = "Can't get image from server"
-                        val toast = Toast.makeText(applicationContext, errorText, Toast.LENGTH_SHORT)
-                        toast.setGravity(Gravity.CENTER, 0, 0)
-                        toast.show()
-                    }
-                })
+                client.getImage(image)
                 Thread.sleep(300)
             }
         }.start()
