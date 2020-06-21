@@ -9,6 +9,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private var viewModel: LocalHostsViewModel? = null
@@ -56,20 +60,33 @@ class MainActivity : AppCompatActivity() {
         // try to connect to server with the given url:
         val urlString = urlInput.text.toString()
         val connected = client.connect(urlString)
-
         if (connected == 0) {
-            val text = "Can't connect, try again!"
-            val duration = Toast.LENGTH_LONG
-            val toast = Toast.makeText(applicationContext, text, duration)
-            toast.setGravity(Gravity.CENTER, 0, 0)
-            toast.show()
+            // failed connecting to server:
+            client.showError("Can't connect, try again!")
             urlInput.setText("")
         } else {
-            // succeeded connecting to server:
-            viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
-            val intent = Intent(this, ControlsActivity::class.java)
-            intent.putExtra("url", urlString)
-            startActivity(intent)
+            // url is valid, try to get an image from server:
+            client.createAPI()
+            client.getAPI().getImg().enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if (response.code() == 404) {
+                        client.showError("Can't connect to server, try again!111")
+                        urlInput.setText("")
+                        return
+                    }
+                    // succeeded connecting to server:
+                    viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
+                    val intent = Intent(this@MainActivity, ControlsActivity::class.java)
+                    intent.putExtra("url", urlString)
+                    startActivity(intent)
+                }
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    client.showError("Can't connect to server, try again!2222")
+                    urlInput.setText("")
+                    return
+                }
+            })
+
         }
     }
 

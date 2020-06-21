@@ -46,7 +46,6 @@ class Client(private var context: Context) : AppCompatActivity() {
         try {
             tempUrl = URL(url)
             con = tempUrl.openConnection() as HttpURLConnection
-
         } catch (e: Exception) {
             return 0
         }
@@ -57,10 +56,7 @@ class Client(private var context: Context) : AppCompatActivity() {
 
     fun getImage(image : ImageView) {
         val body = api.getImg().enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 val I = response.body()?.byteStream()
                 val B = BitmapFactory.decodeStream(I)
                 runOnUiThread {
@@ -68,16 +64,13 @@ class Client(private var context: Context) : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val errorText = "Can't get image from server"
-                val toast = Toast.makeText(applicationContext, errorText, Toast.LENGTH_SHORT)
-                toast.setGravity(Gravity.CENTER, 0, 0)
-                toast.show()
+                showError("Can't get image from server")
             }
         })
     }
 
 
-    private fun createAPI() {
+    fun createAPI() {
         val gson = GsonBuilder()
             .setLenient()
             .create()
@@ -87,6 +80,10 @@ class Client(private var context: Context) : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
         api = retrofit.create(Api::class.java)
+    }
+
+    fun getAPI(): Api {
+        return api
     }
 
     fun sendJson() {
