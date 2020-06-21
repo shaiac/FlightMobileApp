@@ -106,5 +106,17 @@ class ControlsActivity : AppCompatActivity() {
             }
         }
     }
+    override fun onStop(){
+        super.onStop()
+        this.getImage= false;
+    }
+    override fun onResume(){
+        super.onResume()
+        this.getImage=true;
+    }
+    override fun onPause(){
+        super.onPause()
+        this.getImage=false;
+    }
 }
 
