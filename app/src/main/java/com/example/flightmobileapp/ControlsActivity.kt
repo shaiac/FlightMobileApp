@@ -37,14 +37,10 @@ class ControlsActivity : AppCompatActivity() {
         getImage()
     }
 
-    override fun onStop() {
-        super.onStop()
-        getImage = false
-    }
 
     override fun onDestroy() {
-        super.onDestroy()
         getImage = false
+        super.onDestroy()
     }
 
     private fun getImage() {
@@ -54,6 +50,19 @@ class ControlsActivity : AppCompatActivity() {
                 Thread.sleep(300)
             }
         }.start()
+    }
+    override fun onStop(){
+        this.getImage= false;
+        super.onStop()
+    }
+    override fun onResume(){
+        super.onResume()
+        this.getImage=true;
+        getImage()
+    }
+    override fun onPause(){
+        this.getImage=false;
+        super.onPause()
     }
 
     private fun setJoystick() {
@@ -121,18 +130,6 @@ class ControlsActivity : AppCompatActivity() {
                 lastThrottle = throttle.toDouble()
             }
         }
-    }
-    override fun onStop(){
-        super.onStop()
-        this.getImage= false;
-    }
-    override fun onResume(){
-        super.onResume()
-        this.getImage=true;
-    }
-    override fun onPause(){
-        super.onPause()
-        this.getImage=false;
     }
 }
 
