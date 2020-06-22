@@ -6,6 +6,10 @@ import com.ramotion.fluidslider.FluidSlider
 import kotlinx.android.synthetic.main.activity_controls.aileronText
 import kotlinx.android.synthetic.main.activity_controls.elevatorText
 import kotlinx.android.synthetic.main.activity_second.joystickView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
@@ -44,12 +48,12 @@ class ControlsActivity : AppCompatActivity() {
     }
 
     private fun getImage() {
-        Thread {
+        CoroutineScope(IO).launch {
             while(getImage) {
                 client.getImage(image)
-                Thread.sleep(300)
+                delay(300)
             }
-        }.start()
+        }
     }
     override fun onStop(){
         this.getImage= false;
