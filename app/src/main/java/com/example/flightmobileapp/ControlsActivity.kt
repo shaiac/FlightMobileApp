@@ -6,9 +6,14 @@ import com.ramotion.fluidslider.FluidSlider
 import kotlinx.android.synthetic.main.activity_controls.aileronText
 import kotlinx.android.synthetic.main.activity_controls.elevatorText
 import kotlinx.android.synthetic.main.activity_second.joystickView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
+    private var getImage = false
     private var client = Client(this)
     private var lastAileron = 0.0
     private var lastElevator = 0.0
@@ -25,17 +30,43 @@ class ControlsActivity : AppCompatActivity() {
             setJoystick()
             setSliders()
             image = findViewById(R.id.image1)
+            getImage = true
             getImage()
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        getImage = true
+        getImage()
+    }
+
+
+    override fun onDestroy() {
+        getImage = false
+        super.onDestroy()
+    }
+
     private fun getImage() {
-        Thread {
-            while(true) {
+        CoroutineScope(IO).launch {
+            while(getImage) {
                 client.getImage(image)
-                Thread.sleep(300)
+                delay(300)
             }
-        }.start()
+        }
+    }
+    override fun onStop(){
+        this.getImage= false;
+        super.onStop()
+    }
+    override fun onResume(){
+        super.onResume()
+        this.getImage=true;
+        getImage()
+    }
+    override fun onPause(){
+        this.getImage=false;
+        super.onPause()
     }
 
     private fun setJoystick() {
