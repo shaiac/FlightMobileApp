@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         if (listFromDataBase != null) {
             for (localHost in listFromDataBase) {
                 localHostsList[i].text = localHost.localHost
-                i++;
+                i++
             }
         }
     }
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             client.getAPI().getImg().enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.code() == 404) {
-                        client.showError("Can't connect to server, try again!111")
+                        client.showError("Can't connect to server, try again!")
                         urlInput.setText("")
                         return
                     }
@@ -81,12 +81,11 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    client.showError("Can't connect to server, try again!2222")
+                    client.showError("Can't connect to server, try again!")
                     urlInput.setText("")
                     return
                 }
             })
-
         }
     }
 
