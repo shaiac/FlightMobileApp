@@ -50,15 +50,14 @@ class MainActivity : AppCompatActivity() {
         if (listFromDataBase != null) {
             for (localHost in listFromDataBase) {
                 localHostsList[i].text = localHost.localHost
-                i++;
+                i++
             }
         }
     }
     
     fun changeLocalHostsOrder(num : Int) {
-        //var i = 0
         val size = localHostsList.size
-        var index = num % 5;
+        val index = (num % 5)
         val temp = localHostsList[index].text
         for (i in index until size - 1) {
             localHostsList[i].text = localHostsList[i + 1].text
@@ -72,14 +71,14 @@ class MainActivity : AppCompatActivity() {
                 return i
             }
         }
-        return -1;
+        return -1
     }
 
 
     private fun updateLocalHosts(url : String) {
-        var isExist = isExist(url)
+        val isExist :Int= isExist(url)
         if (isExist == -1) {
-            localHostsList[0].text = url;
+            localHostsList[0].text = url
             changeLocalHostsOrder(5)
         } else {
             changeLocalHostsOrder(isExist)
