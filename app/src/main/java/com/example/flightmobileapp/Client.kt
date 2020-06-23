@@ -65,13 +65,13 @@ class Client(private var context: Context) : AppCompatActivity() {
                     showError("Can't get image from server")
                     return
                 }
-                val I = response.body()?.byteStream()
-                val B = BitmapFactory.decodeStream(I)
+                val i = response.body()?.byteStream()
+                val b = BitmapFactory.decodeStream(i)
                 runOnUiThread {
-                    image.setImageBitmap(B)
+                    image.setImageBitmap(b)
                 }
             }
-            //if we dont ger response - let the app knew.
+            //if we don't ger response - let the app knew.
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showError("Can't get image from server")
             }
@@ -80,13 +80,13 @@ class Client(private var context: Context) : AppCompatActivity() {
 
 
     fun createAPI() {
-        val gson = GsonBuilder()
+        val json = GsonBuilder()
             .setLenient()
             .create()
         val url = urlConn.toString()
         val retrofit = Retrofit.Builder()
             .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create(json))
             .build()
         api = retrofit.create(Api::class.java)
     }
@@ -99,13 +99,13 @@ class Client(private var context: Context) : AppCompatActivity() {
         con.requestMethod = "POST"
         con.setRequestProperty("Content-Type", "application/json; utf-8")
         con.setRequestProperty("Accept", "application/json")
-        con.doOutput = true;
+        con.doOutput = true
         // create json and send it to server
         val json =
             "{\"aileron\":$aileron,\n\"rudder\":$rudder,\n\"elevator\":$elevator,\n\"throttle\":$throttle\n}"
         val rb: RequestBody = RequestBody.create(MediaType.parse("application/json"), json)
         api.post(rb).enqueue(object : Callback<ResponseBody> {
-            //if we dont get response - let the app knew.
+            //if we don't get response - let the app knew.
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showError("Server isn't responding")
                 return

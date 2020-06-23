@@ -21,7 +21,8 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout1" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout1"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/button"
@@ -161,7 +162,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="62dp"
         android:layout_marginBottom="10dp"
-        android:text="History URLS"
+        android:text="@string/History_URLS"
         android:textAlignment="center"
         android:textColor="#AFEADC"
         android:textSize="25sp"

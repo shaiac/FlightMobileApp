@@ -7,20 +7,11 @@
     <string name="local_host3">Localhost3</string>
     <string name="local_host4">Localhost4</string>
     <string name="local_host5">Localhost5</string>
-    <string name="hello">hello</string>
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="outer_circle">out_circle</string>
-    <string name="arrow_up">arrow_up</string>
-    <string name="arrow_down">arrow_down</string>
-    <string name="arrow_left">arrow_left</string>
-    <string name="arrow_right">arrow_right</string>
-        <string name="app_name2">Spinner Example</string>
-    <string name="selected_item">Selected item:</string>
+    <string name="description">description</string>
+    <string name="email_subject_hint" />
+    <string name="Rudder">Rudder</string>
+    <string name="Throttle">Throttle</string>
+    <string name="History_URLS">History URLS</string>
 
-    <string-array name="Time">
-        <item>night</item>
-        <item>day</item>
-    </string-array>
+
 </resources>

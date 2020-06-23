@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.ramotion.fluidslider.FluidSlider
-import kotlinx.android.synthetic.main.activity_controls.aileronText
-import kotlinx.android.synthetic.main.activity_controls.elevatorText
+import kotlinx.android.synthetic.main.activity_second.aileronText
+import kotlinx.android.synthetic.main.activity_second.elevatorText
 import kotlinx.android.synthetic.main.activity_second.joystickView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -21,7 +21,7 @@ class ControlsActivity : AppCompatActivity() {
     private var lastElevator = 0.0
     private var lastThrottle = 0.0
     private var lastRudder = 0.0
-    lateinit var image : ImageView
+    private lateinit  var image : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,18 +59,18 @@ class ControlsActivity : AppCompatActivity() {
 
     override fun onStop(){
         super.onStop()
-        this.getImage= false;
+        this.getImage= false
 
     }
 
     override fun onResume(){
         super.onResume()
-        getImage=true;
+        getImage=true
         getImage()
     }
 
     override fun onPause(){
-        getImage=false;
+        getImage=false
         super.onPause()
     }
 

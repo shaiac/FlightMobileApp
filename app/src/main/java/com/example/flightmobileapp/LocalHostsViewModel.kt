@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 class LocalHostsViewModel(application: Application) : AndroidViewModel(application) {
 
-    var allLocalHost: List<LocalHost>? = null
+    private var  allLocalHost: List<LocalHost>? = null
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
@@ -21,7 +21,7 @@ class LocalHostsViewModel(application: Application) : AndroidViewModel(applicati
         if (size !=null && size < 5) {
             localHostDao?.insertLocalHost(localHost)
         } else {
-            var str : String = allLocalHost!![0].localHost
+            val str : String = allLocalHost!![0].localHost
             deleteLocalHost(str , localHostDao)
             localHostDao?.insertLocalHost(localHost)
         }
@@ -31,9 +31,9 @@ class LocalHostsViewModel(application: Application) : AndroidViewModel(applicati
         allLocalHost = localHostDao?.getLocalHosts()
     }
 
-    fun clearAllTable(localHostDao: LocalHostDao?) = viewModelScope.launch(Dispatchers.IO) {
+    /*fun clearAllTable(localHostDao: LocalHostDao?) = viewModelScope.launch(Dispatchers.IO) {
         localHostDao?.clearAllTable()
-    }
+    }*/
 
     fun getAllList(localHostDao: LocalHostDao?) : List<LocalHost>? {
         updateListFromDataBase(localHostDao)

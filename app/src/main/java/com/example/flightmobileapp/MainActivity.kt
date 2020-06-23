@@ -2,11 +2,9 @@ package com.example.flightmobileapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import okhttp3.ResponseBody
@@ -55,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
-    fun changeLocalHostsOrder(num : Int) {
+    private fun changeLocalHostsOrder(num : Int) {
         val size = localHostsList.size
         val index = (num % 5)
         val temp = localHostsList[index].text
@@ -65,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         localHostsList[size - 1].text = temp
     }
 
-    fun isExist(url : String) : Int {
+    private fun isExist(url : String) : Int {
         for ((i, localHost) in localHostsList.withIndex()) {
             if (localHost.text == url) {
                 return i
@@ -84,13 +82,13 @@ class MainActivity : AppCompatActivity() {
             changeLocalHostsOrder(isExist)
         }
     }
-    
-    
+
+
 
     /** Called when the user taps the connect button */
-    fun gotoControl() {
+    fun gotoControl(view: View) {
         // try to connect to server with the given url:
-
+        view.id
         val urlString = urlInput.text.toString()
         viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
         updateLocalHosts(urlString)
@@ -132,4 +130,5 @@ class MainActivity : AppCompatActivity() {
             else -> urlInput.setText(localHostsList[4].text)
         }
     }
+
 }

@@ -71,7 +71,7 @@
     <EditText
         android:id="@+id/aileronText"
         android:layout_width="171dp"
-        android:layout_height="41dp"
+    android:layout_height="41dp"
         android:autofillHints=""
         android:backgroundTint="#FFFFFF"
         android:ems="10"
@@ -81,7 +81,8 @@
         app:layout_constraintHorizontal_bias="0.078"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.016" />
+        app:layout_constraintVertical_bias="0.016"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/elevatorText"
@@ -89,13 +90,15 @@
         android:layout_height="44dp"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
-        android:inputType="numberDecimal"
+        tools:ignore="LabelFor"
+    android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.412"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintVertical_bias="0.008"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/rudderView"
@@ -103,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:rotation="270"
-        android:text="Rudder"
+        android:text="@string/Rudder"
         app:layout_constraintBottom_toBottomOf="@+id/fluidSliderRudder"
         app:layout_constraintEnd_toEndOf="@+id/fluidSliderRudder"
         app:layout_constraintHorizontal_bias="0.149"
@@ -113,7 +116,7 @@
         android:id="@+id/throttleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Throttle"
+        android:text="@string/Throttle"
         app:layout_constraintBottom_toTopOf="@+id/fluidSliderThrottle"
         app:layout_constraintEnd_toEndOf="@+id/fluidSliderThrottle"
         app:layout_constraintHorizontal_bias="0.0"
@@ -123,6 +126,7 @@
 
     <ImageView
         android:id="@+id/image1"
+        android:contentDescription="@string/description"
         android:layout_width="282dp"
         android:layout_height="283dp"
         android:layout_marginStart="344dp"

@@ -24,7 +24,8 @@
         app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.52" />
+        app:layout_constraintVertical_bias="0.52"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/button"
@@ -44,7 +45,7 @@
         android:id="@+id/textView"
         android:layout_width="288dp"
         android:layout_height="38dp"
-        android:text="History URLS"
+        android:text="@string/History_URLS"
         android:textAlignment="center"
         android:textColor="#AFEADC"
         android:textSize="25sp"
