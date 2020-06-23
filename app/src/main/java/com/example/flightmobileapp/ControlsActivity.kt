@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import java.math.RoundingMode
 
 class ControlsActivity : AppCompatActivity() {
-    private var getImage = false
+    private var getImage:Boolean = false
     private var client = Client(this)
     private var lastAileron = 0.0
     private var lastElevator = 0.0
@@ -58,24 +58,24 @@ class ControlsActivity : AppCompatActivity() {
     }
 
     override fun onStop(){
-        this.getImage= false;
         super.onStop()
+        this.getImage= false;
+
     }
 
     override fun onResume(){
         super.onResume()
-        this.getImage=true;
+        getImage=true;
         getImage()
     }
 
     override fun onPause(){
-        this.getImage=false;
+        getImage=false;
         super.onPause()
     }
 
     @SuppressLint("SetTextI18n")
     private fun setJoystick() {
-        val joystick = joystickView.right
         var changed = false
         joystickView.setOnMoveListener {
             angle, strength ->

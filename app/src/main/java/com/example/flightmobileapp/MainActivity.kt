@@ -15,7 +15,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private var isConnected = false;
     private var viewModel: LocalHostsViewModel? = null
     private var db: LocalHostsRoomDatabase? = null
     private var localHostDao: LocalHostDao? = null
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         this.localHostsList.add(findViewById(R.id.localhost4))
         this.localHostsList.add(findViewById(R.id.localhost5))
         val listFromDataBase : List<LocalHost>? =  viewModel?.getAllList(localHostDao)
-        var i : Int = 0
+              var i  = 0
         if (listFromDataBase != null) {
             for (localHost in listFromDataBase) {
                 localHostsList[i].text = localHost.localHost
@@ -57,8 +56,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the connect button */
-    fun gotoControl(view: View) {
+    fun gotoControl() {
         // try to connect to server with the given url:
+
         val urlString = urlInput.text.toString()
         val connected = client.connect(urlString)
         if (connected == 0) {
