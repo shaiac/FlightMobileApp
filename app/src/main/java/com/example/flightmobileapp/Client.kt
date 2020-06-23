@@ -41,10 +41,12 @@ class Client(private var context: Context) : AppCompatActivity() {
         rudder = value
     }
 
+    //in this func we try connect to the http address we got from user- if susses return 1 , else 0.
     fun connect(url: String):Int {
         val tempUrl: URL
         try {
             tempUrl = URL(url)
+            //save the http address.
             con = tempUrl.openConnection() as HttpURLConnection
         } catch (e: Exception) {
             return 0
@@ -54,8 +56,10 @@ class Client(private var context: Context) : AppCompatActivity() {
         return 1
     }
 
+    //try to get the image from server.
     fun getImage(image : ImageView) {
         val body = api.getImg().enqueue(object : Callback<ResponseBody> {
+            //if we get response from server
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.code() != 200) {
                     showError("Can't get image from server")
@@ -67,6 +71,7 @@ class Client(private var context: Context) : AppCompatActivity() {
                     image.setImageBitmap(B)
                 }
             }
+            //if we dont ger response - let the app knew.
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showError("Can't get image from server")
             }
@@ -100,10 +105,12 @@ class Client(private var context: Context) : AppCompatActivity() {
             "{\"aileron\":$aileron,\n\"rudder\":$rudder,\n\"elevator\":$elevator,\n\"throttle\":$throttle\n}"
         val rb: RequestBody = RequestBody.create(MediaType.parse("application/json"), json)
         api.post(rb).enqueue(object : Callback<ResponseBody> {
+            //if we dont get response - let the app knew.
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showError("Server isn't responding")
                 return
             }
+            //if we get response from server
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 try {
                     if (response.code() != 200) {

@@ -105,25 +105,21 @@ class ControlsActivity : AppCompatActivity() {
         val maxR = 1
         val minR = -1
         val totalR = maxR - minR
-        rudderSeek.positionListener = { p ->
-            val rudder = minR + (totalR * p)
+        rudderSeek.positionListener = { p -> val rudder = minR + (totalR * p)
             // send rudder to server
             val rudderDisplay = rudder.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
             rudderSeek.bubbleText = rudderDisplay.toString()
             // check if value changed in more than 1% and send to server:
-            if ((rudder > 1.01 * lastRudder) || (rudder < 0.99 * lastRudder)) {
-                client.setRudder(rudder.toDouble())
+            if ((rudder > 1.01 * lastRudder) || (rudder < 0.99 * lastRudder)) { client.setRudder(rudder.toDouble())
                 client.sendJson()
                 lastRudder = rudder.toDouble()
-            }
-        }
+            } }
         // set throttle slider (seek bar)
         val throttleSeek = findViewById<FluidSlider>(R.id.fluidSliderThrottle)
         val maxT = 1
         val minT = 0
         val totalT = maxT - minT
-        throttleSeek.positionListener = { p ->
-            val throttle = minT + (totalT * p)
+        throttleSeek.positionListener = { p -> val throttle = minT + (totalT * p)
             // send throttle to server
             val throttleDisplay = throttle.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
             throttleSeek.bubbleText = throttleDisplay.toString()
@@ -132,8 +128,6 @@ class ControlsActivity : AppCompatActivity() {
                 client.setThrottle(throttle.toDouble())
                 client.sendJson()
                 lastThrottle = throttle.toDouble()
-            }
-        }
-    }
+            } } }
 }
 

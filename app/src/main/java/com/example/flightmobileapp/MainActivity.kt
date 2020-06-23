@@ -85,10 +85,7 @@ class MainActivity : AppCompatActivity() {
                     client.showError("Can't connect to server, try again!2222")
                     urlInput.setText("")
                     return
-                }
-            })
-
-        }
+                } }) }
     }
 
     fun putUrl(view : View) {
