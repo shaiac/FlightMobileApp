@@ -12,6 +12,4 @@ interface Api {
     fun getImg(): Call<ResponseBody>
     @POST("/api/command")
     fun post(@Body rb:RequestBody): Call<ResponseBody>
-
-
 }

@@ -63,30 +63,32 @@ class MainActivity : AppCompatActivity() {
         val connected = client.connect(urlString)
         if (connected == 0) {
             // failed connecting to server:
-            client.showError("Can't connect, try again!")
+            client.showError("Can't connect to server, try again!")
             urlInput.setText("")
         } else {
             // url is valid, try to get an image from server:
             client.createAPI()
             client.getAPI().getImg().enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    if (response.code() == 404) {
-                        client.showError("Can't connect to server, try again!111")
-                        urlInput.setText("")
-                        return
-                    }
-                    // succeeded connecting to server:
-                    viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
-                    val intent = Intent(this@MainActivity, ControlsActivity::class.java)
-                    intent.putExtra("url", urlString)
-                    startActivity(intent)
-                }
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    client.showError("Can't connect to server, try again!2222")
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 404) {
+                    client.showError("Can't connect to server, try again!")
                     urlInput.setText("")
                     return
                 }
-            }) } }
+                // succeeded connecting to server:
+                viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
+                val intent = Intent(this@MainActivity, ControlsActivity::class.java)
+                intent.putExtra("url", urlString)
+                startActivity(intent)
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                client.showError("Can't connect to server, try again!")
+                urlInput.setText("")
+                return
+            }
+            })
+        }
+    }
 
     fun putUrl(view : View) {
         when (view.id) {
@@ -97,5 +99,4 @@ class MainActivity : AppCompatActivity() {
             else -> urlInput.setText(localHostsList[4].text)
         }
     }
-
 }

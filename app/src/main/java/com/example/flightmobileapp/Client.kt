@@ -41,7 +41,7 @@ class Client(private var context: Context) : AppCompatActivity() {
         rudder = value
     }
 
-    //in this func we try connect to the http address we got from user- if susses return 1 , else 0.
+    //in this func we try connect to the http address we got from user- if succeeded return 1 , else 0.
     fun connect(url: String):Int {
         val tempUrl: URL
         try {
@@ -71,7 +71,7 @@ class Client(private var context: Context) : AppCompatActivity() {
                     image.setImageBitmap(B)
                 }
             }
-            //if we dont ger response - let the app knew.
+            //if we don't get response - let the user know.
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showError("Can't get image from server")
             }
@@ -105,7 +105,7 @@ class Client(private var context: Context) : AppCompatActivity() {
             "{\"aileron\":$aileron,\n\"rudder\":$rudder,\n\"elevator\":$elevator,\n\"throttle\":$throttle\n}"
         val rb: RequestBody = RequestBody.create(MediaType.parse("application/json"), json)
         api.post(rb).enqueue(object : Callback<ResponseBody> {
-            //if we dont get response - let the app knew.
+            //if we don't get response - let the user know.
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showError("Server isn't responding")
                 return

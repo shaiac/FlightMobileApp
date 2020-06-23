@@ -44,6 +44,4 @@ class LocalHostsViewModel(application: Application) : AndroidViewModel(applicati
     private fun deleteLocalHost(localHost: String, localHostDao: LocalHostDao?) = viewModelScope.launch(Dispatchers.IO) {
         localHostDao?.deleteByName(localHost)
     }
-
-
 }

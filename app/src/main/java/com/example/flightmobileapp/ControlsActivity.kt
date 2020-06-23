@@ -1,4 +1,6 @@
 package com.example.flightmobileapp
+
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -41,7 +43,6 @@ class ControlsActivity : AppCompatActivity() {
         getImage()
     }
 
-
     override fun onDestroy() {
         getImage = false
         super.onDestroy()
@@ -55,20 +56,24 @@ class ControlsActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onStop(){
         this.getImage= false;
         super.onStop()
     }
+
     override fun onResume(){
         super.onResume()
         this.getImage=true;
         getImage()
     }
+
     override fun onPause(){
         this.getImage=false;
         super.onPause()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setJoystick() {
         val joystick = joystickView.right
         var changed = false
@@ -77,8 +82,8 @@ class ControlsActivity : AppCompatActivity() {
             val aileron = kotlin.math.cos(Math.toRadians(angle.toDouble())) * strength / 100
             val elevator = kotlin.math.sin(Math.toRadians(angle.toDouble())) * strength / 100
             // show values on screen:
-            aileronText.setText(aileron.toDouble().toString())
-            elevatorText.setText(elevator.toDouble().toString())
+            aileronText.setText("aileron: $aileron")
+            elevatorText.setText("elevator: $elevator")
             // check if values changed in more than 1%:
             if ((aileron > 1.01 * lastAileron) || (aileron < 0.99 * lastAileron)) {
                 client.setAileron(aileron)
@@ -128,6 +133,7 @@ class ControlsActivity : AppCompatActivity() {
                 client.setThrottle(throttle.toDouble())
                 client.sendJson()
                 lastThrottle = throttle.toDouble()
-            } } }
+            }
+        }
+    }
 }
-

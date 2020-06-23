@@ -21,5 +21,4 @@ interface  LocalHostDao {
 
     @Query ("DELETE FROM localHosts_table WHERE localHost == :localHost")
     fun deleteByName(localHost: String)
-
 }
