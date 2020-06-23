@@ -86,10 +86,7 @@ class MainActivity : AppCompatActivity() {
                     urlInput.setText("")
                     return
                 }
-            })
-
-        }
-    }
+            }) } }
 
     fun putUrl(view : View) {
         when (view.id) {
