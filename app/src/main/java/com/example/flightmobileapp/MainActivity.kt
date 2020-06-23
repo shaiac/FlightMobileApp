@@ -54,12 +54,47 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    
+    fun changeLocalHostsOrder(num : Int) {
+        //var i = 0
+        val size = localHostsList.size
+        var index = num % 5;
+        val temp = localHostsList[index].text
+        for (i in index until size - 1) {
+            localHostsList[i].text = localHostsList[i + 1].text
+        }
+        localHostsList[size - 1].text = temp
+    }
+
+    fun isExist(url : String) : Int {
+        for ((i, localHost) in localHostsList.withIndex()) {
+            if (localHost.text == url) {
+                return i
+            }
+        }
+        return -1;
+    }
+
+
+    private fun updateLocalHosts(url : String) {
+        var isExist = isExist(url)
+        if (isExist == -1) {
+            localHostsList[0].text = url;
+            changeLocalHostsOrder(5)
+        } else {
+            changeLocalHostsOrder(isExist)
+        }
+    }
+    
+    
 
     /** Called when the user taps the connect button */
     fun gotoControl() {
         // try to connect to server with the given url:
 
         val urlString = urlInput.text.toString()
+        viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
+        updateLocalHosts(urlString)
         val connected = client.connect(urlString)
         if (connected == 0) {
             // failed connecting to server:
@@ -76,7 +111,6 @@ class MainActivity : AppCompatActivity() {
                     return
                 }
                 // succeeded connecting to server:
-                viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
                 val intent = Intent(this@MainActivity, ControlsActivity::class.java)
                 intent.putExtra("url", urlString)
                 startActivity(intent)
