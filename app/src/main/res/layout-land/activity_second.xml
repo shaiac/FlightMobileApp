@@ -24,15 +24,15 @@
         app:JV_fixedCenter="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.169"
+        app:layout_constraintHorizontal_bias="0.316"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.496" />
+        app:layout_constraintVertical_bias="0.139" />
 
     <com.ramotion.fluidslider.FluidSlider
         android:id="@+id/fluidSliderRudder"
-        android:layout_width="228dp"
-        android:layout_height="96dp"
+        android:layout_width="225dp"
+        android:layout_height="106dp"
         android:layout_marginEnd="16dp"
         android:elevation="2dp"
         app:bar_color="@color/eggplant"
@@ -41,10 +41,10 @@
         app:initial_position="0.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintHorizontal_bias="0.196"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/joystickView"
-        app:layout_constraintVertical_bias="0.933"
+        app:layout_constraintVertical_bias="1.0"
         app:size="small"
         app:start_text="-1"
         tools:targetApi="lollipop" />
@@ -53,7 +53,7 @@
         android:id="@+id/fluidSliderThrottle"
         android:layout_width="202dp"
         android:layout_height="102dp"
-        android:layout_marginEnd="260dp"
+        android:layout_marginEnd="216dp"
         android:elevation="2dp"
         android:rotation="90"
         app:bar_color="@color/eggplant"
@@ -61,16 +61,16 @@
         app:end_text="1"
         app:initial_position="0"
         app:layout_constraintBottom_toBottomOf="@+id/fluidSliderRudder"
-        app:layout_constraintEnd_toStartOf="@+id/image1"
+        app:layout_constraintEnd_toEndOf="@+id/joystickView"
         app:layout_constraintTop_toTopOf="@+id/joystickView"
-        app:layout_constraintVertical_bias="0.464"
+        app:layout_constraintVertical_bias="0.454"
         app:size="small"
         app:start_text="0"
         tools:targetApi="lollipop" />
 
     <EditText
         android:id="@+id/aileronText"
-        android:layout_width="171dp"
+        android:layout_width="120dp"
         android:layout_height="41dp"
         android:autofillHints=""
         android:backgroundTint="#FFFFFF"
@@ -78,39 +78,38 @@
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="@+id/fluidSliderRudder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.221"
+        app:layout_constraintHorizontal_bias="0.078"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.016"
         tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/elevatorText"
-        android:layout_width="156dp"
+        android:layout_width="120dp"
         android:layout_height="44dp"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
-        android:importantForAutofill="no"
+        tools:ignore="LabelFor"
         android:inputType="numberDecimal"
-        android:rotation="90"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.412"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        tools:ignore="LabelFor" />
+        app:layout_constraintVertical_bias="0.008"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/rudderView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="16dp"
         android:rotation="270"
         android:text="@string/Rudder"
         app:layout_constraintBottom_toBottomOf="@+id/fluidSliderRudder"
         app:layout_constraintEnd_toEndOf="@+id/fluidSliderRudder"
-        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

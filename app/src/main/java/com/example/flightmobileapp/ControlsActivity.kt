@@ -82,8 +82,10 @@ class ControlsActivity : AppCompatActivity() {
             val aileron = kotlin.math.cos(Math.toRadians(angle.toDouble())) * strength / 100
             val elevator = kotlin.math.sin(Math.toRadians(angle.toDouble())) * strength / 100
             // show values on screen:
-            aileronText.setText("aileron: $aileron")
-            elevatorText.setText("elevator: $elevator")
+            val aileronDisplay = aileron.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+            val elevatorDisplay = elevator.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+            aileronText.setText("aileron: $aileronDisplay")
+            elevatorText.setText("elevator: $elevatorDisplay")
             // check if values changed in more than 1%:
             if ((aileron > 1.01 * lastAileron) || (aileron < 0.99 * lastAileron)) {
                 client.setAileron(aileron)

@@ -89,6 +89,10 @@ class MainActivity : AppCompatActivity() {
     fun gotoControl(view: View) {
         // try to connect to server with the given url:
         view.id
+        if (urlInput.text.toString() == "") {
+            client.showError("Please enter url")
+            return
+        }
         val urlString = urlInput.text.toString()
         viewModel?.insert(LocalHost(localHost = urlInput.text.toString()), localHostDao)
         updateLocalHosts(urlString)
